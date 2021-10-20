@@ -5,7 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase/firebase.dart';
+
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  //
+  // Database db = database();
+  // DatabaseReference ref = db.ref("todos");
+  //
+  // ref.onValue.listen((e) {
+  //   DataSnapshot datasnapshot = e.snapshot;
+  //   debugPrint(datasnapshot.toJson());
+  //   // Do something with datasnapshot
+  // });
+
   runApp(MyApp());
 }
 
