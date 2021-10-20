@@ -5,27 +5,37 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+// import 'package:firebase/firebase.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase/firebase.dart';
+import 'package:firebase_database/firebase_database.dart';
+
+late FirebaseApp app;
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  //
-  // Database db = database();
-  // DatabaseReference ref = db.ref("todos");
-  //
-  // ref.onValue.listen((e) {
-  //   DataSnapshot datasnapshot = e.snapshot;
-  //   debugPrint(datasnapshot.toJson());
-  //   // Do something with datasnapshot
-  // });
-
+  app = await Firebase.initializeApp();
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    final DatabaseReference db = FirebaseDatabase(app: app).reference();
+    db.child("todos").once().then((value) {
+      final datasnapshot = value.value;
+      debugPrint(datasnapshot.toString());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

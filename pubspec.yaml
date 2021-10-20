@@ -34,8 +34,9 @@ dependencies:
   provider: ^5.0.0
   data_table_2: ^2.0.3
 
-  firebase:
-  firebase_database:
+#  firebase:
+  firebase_core: "^1.7.0"
+  firebase_database: "^8.0.0"
 
 dev_dependencies:
   flutter_test:
