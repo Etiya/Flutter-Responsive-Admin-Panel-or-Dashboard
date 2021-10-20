@@ -1,5 +1,7 @@
+import 'package:admin/controllers/MenuController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({
@@ -12,47 +14,39 @@ class SideMenu extends StatelessWidget {
       child: ListView(
         children: [
           DrawerHeader(
-            child: Image.asset("assets/images/logo.png"),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 75,
+                  child: FittedBox(
+                    child: Image.asset(
+                      "assets/images/logo.png",
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+                // Image.asset("assets/images/logo.png"),
+                Text(
+                  "ETIYA",
+                  style: TextStyle(color: Colors.white, fontSize: 21),
+                ),
+              ],
+            ),
           ),
           DrawerListTile(
             title: "Dashboard",
-            svgSrc: "assets/icons/menu_dashbord.svg",
-            press: () {},
+            svgSrc: "assets/icons/menu_dashboard.svg",
+            press: () => context
+                  .read<MenuController>()
+                  .setMenuScreen(MenuScreen.dashboard),
           ),
           DrawerListTile(
-            title: "Transaction",
-            svgSrc: "assets/icons/menu_tran.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Task",
-            svgSrc: "assets/icons/menu_task.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Documents",
+            title: "App Version",
             svgSrc: "assets/icons/menu_doc.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Store",
-            svgSrc: "assets/icons/menu_store.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Notification",
-            svgSrc: "assets/icons/menu_notification.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Profile",
-            svgSrc: "assets/icons/menu_profile.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "Settings",
-            svgSrc: "assets/icons/menu_setting.svg",
-            press: () {},
+            press: () => context
+                .read<MenuController>()
+                .setMenuScreen(MenuScreen.appVersion),
           ),
         ],
       ),
@@ -63,7 +57,6 @@ class SideMenu extends StatelessWidget {
 class DrawerListTile extends StatelessWidget {
   const DrawerListTile({
     Key? key,
-    // For selecting those three line once press "Command+D"
     required this.title,
     required this.svgSrc,
     required this.press,
