@@ -4,7 +4,7 @@ packages:
   app_version_update:
     dependency: "direct main"
     description:
-      path: packages
+      path: "packages/app_version_update"
       relative: true
     source: path
     version: "0.0.1"

@@ -39,7 +39,7 @@ dependencies:
   firebase_database: "^8.0.0"
 
   app_version_update:
-    path: ./packages
+    path: ./packages/app_version_update
 
 dev_dependencies:
   flutter_test:
