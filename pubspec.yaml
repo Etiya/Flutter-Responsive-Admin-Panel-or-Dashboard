@@ -38,6 +38,9 @@ dependencies:
   firebase_core: "^1.7.0"
   firebase_database: "^8.0.0"
 
+  app_version_update:
+    path: ./packages
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

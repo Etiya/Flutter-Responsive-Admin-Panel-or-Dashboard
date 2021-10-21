@@ -1,4 +1,4 @@
-import 'package:admin/controllers/MenuController.dart';
+import 'package:admin/controllers/menu_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +27,7 @@ class SideMenu extends StatelessWidget {
                   ),
                 ),
                 // Image.asset("assets/images/logo.png"),
-                Text(
+                const Text(
                   "ETIYA",
                   style: TextStyle(color: Colors.white, fontSize: 21),
                 ),
@@ -77,7 +77,7 @@ class DrawerListTile extends StatelessWidget {
       ),
       title: Text(
         title,
-        style: TextStyle(color: Colors.white54),
+        style: const TextStyle(color: Colors.white54),
       ),
     );
   }

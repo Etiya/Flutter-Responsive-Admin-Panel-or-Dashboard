@@ -41,7 +41,7 @@ void main() {
   test('User must not be notified if already have latest version', () async {
     setCurrentMockVersion("2.0.0");
     final appVersion = AppVersionMetadata(
-      latestAvailableVersion: "2.0.0",
+      latestPublishedIOSVersion: "2.0.0",
       minRequiredIOSAppVersion: "2.0.0",
     );
     appVersion.platform = FakePlatform(operatingSystem: Platform.iOS);
@@ -54,7 +54,7 @@ void main() {
   test('User must be notified if have a version lower than required with FORCE', () async {
     setCurrentMockVersion("1.0.0");
     final appVersion = AppVersionMetadata(
-      latestAvailableVersion: "2.0.0",
+      latestPublishedIOSVersion: "2.0.0",
       minRequiredIOSAppVersion: "2.0.0",
     );
     appVersion.platform = FakePlatform(operatingSystem: Platform.iOS);
@@ -67,7 +67,7 @@ void main() {
   test('User should be notified if have a lower version with OPTIONAL', () async {
     setCurrentMockVersion("1.6.0");
     final appVersion = AppVersionMetadata(
-      latestAvailableVersion: "2.0.0",
+      latestPublishedIOSVersion: "2.0.0",
       minRequiredIOSAppVersion: "1.5.0",
     );
     appVersion.platform = FakePlatform(operatingSystem: Platform.iOS);

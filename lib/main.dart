@@ -1,40 +1,28 @@
 import 'package:admin/constants.dart';
-import 'package:admin/controllers/MenuController.dart';
+import 'package:admin/controllers/menu_controller.dart';
 import 'package:admin/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-// import 'package:firebase/firebase.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 late FirebaseApp app;
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   app = await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  // This widget is the root of your application.
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-
-  @override
-  void initState() {
-    super.initState();
-
-    final DatabaseReference db = FirebaseDatabase(app: app).reference();
-    db.child("todos").once().then((value) {
-      final datasnapshot = value.value;
-      debugPrint(datasnapshot.toString());
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
