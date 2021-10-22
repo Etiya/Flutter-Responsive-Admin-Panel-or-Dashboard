@@ -1,5 +1,6 @@
 import 'package:app_version_update/app_version_update.dart';
 import 'package:flutter/material.dart';
+import 'package:launch_review/launch_review.dart';
 
 class AppVersionPopup {
   static showIfNeeded({
@@ -7,7 +8,7 @@ class AppVersionPopup {
     required BuildContext context,
   }) async {
     final isThereAnyUpdateAvailable =
-    await appVersion.isThereAnyUpdateAvailable();
+        await appVersion.isThereAnyUpdateAvailable();
     final isUserHasToForceUpdate = await appVersion.isUserHasToForceUpdate();
 
     if (!isThereAnyUpdateAvailable) {
@@ -17,35 +18,61 @@ class AppVersionPopup {
     showDialog(
       barrierDismissible: !isUserHasToForceUpdate,
       context: context,
-      builder: (_) =>
-          Dialog(
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(16)),
-                color: Colors.orangeAccent,
-              ),
-              width: MediaQuery.of(context).size.width * 0.8,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text(
-                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-                      softWrap: true,
+      builder: (_) => Dialog(
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(16.0))
+        ),
+        child: Container(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(16)),
+          ),
+          width: MediaQuery.of(context).size.width * 0.8,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (appVersion.currentReleaseInformation?.title != null)
+                  ...[
+                    Text(
+                      appVersion.currentReleaseInformation?.title ?? "",
+                      style: Theme.of(context).textTheme.headline5,
+                      textAlign: TextAlign.center,
                     ),
-                    Row(
-                      children: [
-                        if (!isUserHasToForceUpdate)
-                          TextButton(onPressed: () {}, child: Text("Not now")),
-                        TextButton(onPressed: () {}, child: Text("Update")),
-                      ],
-                    )
+                    const Divider()
                   ],
+                Text(
+                  appVersion.currentReleaseInformation?.description ?? "",
+                  softWrap: true,
+                  textAlign: TextAlign.center,
                 ),
-              ),
+                Row(
+                  children: [
+                    if (!isUserHasToForceUpdate)
+                      TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          appVersion.configuration?.notNowButtonText ?? "Not now",
+                        ),
+                      ),
+                    TextButton(
+                      onPressed: () {
+                        LaunchReview.launch(
+                          androidAppId: appVersion.androidApp?.appId,
+                          iOSAppId: appVersion.iosApp?.appId,
+                        );
+                      },
+                      child: Text(
+                        appVersion.configuration?.updateButtonText ?? "Update",
+                      ),
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
+        ),
+      ),
     );
   }
 }

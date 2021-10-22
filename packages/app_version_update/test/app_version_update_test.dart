@@ -40,39 +40,53 @@ void main() {
 
   test('User must not be notified if already have latest version', () async {
     setCurrentMockVersion("2.0.0");
-    final appVersion = AppVersionMetadata(
-      latestPublishedIOSVersion: "2.0.0",
-      minRequiredIOSAppVersion: "2.0.0",
-    );
+    final appVersion = AppVersionMetadata.fromJson({
+      "ios": {
+        "app-id": "585027354",
+        "latest-published-version" : "2.0.0",
+        "min-required-app-version" : "2.0.0",
+      }
+    });
     appVersion.platform = FakePlatform(operatingSystem: Platform.iOS);
     final isUserHasToForceUpdate = await appVersion.isUserHasToForceUpdate();
-    final isThereAnyAvailableUpdate = await appVersion.isThereAnyUpdateAvailable();
+    final isThereAnyAvailableUpdate =
+        await appVersion.isThereAnyUpdateAvailable();
     expect(isUserHasToForceUpdate, false);
     expect(isThereAnyAvailableUpdate, false);
   });
 
-  test('User must be notified if have a version lower than required with FORCE', () async {
+  test('User must be notified if have a version lower than required with FORCE',
+      () async {
     setCurrentMockVersion("1.0.0");
-    final appVersion = AppVersionMetadata(
-      latestPublishedIOSVersion: "2.0.0",
-      minRequiredIOSAppVersion: "2.0.0",
-    );
+    final appVersion = AppVersionMetadata.fromJson({
+      "ios": {
+        "app-id": "585027354",
+        "latest-published-version" : "2.0.0",
+        "min-required-app-version" : "2.0.0",
+      }
+    });
     appVersion.platform = FakePlatform(operatingSystem: Platform.iOS);
     final isUserHasToForceUpdate = await appVersion.isUserHasToForceUpdate();
-    final isThereAnyAvailableUpdate = await appVersion.isThereAnyUpdateAvailable();
+    final isThereAnyAvailableUpdate =
+        await appVersion.isThereAnyUpdateAvailable();
     expect(isUserHasToForceUpdate, true);
     expect(isThereAnyAvailableUpdate, true);
   });
 
-  test('User should be notified if have a lower version with OPTIONAL', () async {
+  test('User should be notified if have a lower version with OPTIONAL',
+      () async {
     setCurrentMockVersion("1.6.0");
-    final appVersion = AppVersionMetadata(
-      latestPublishedIOSVersion: "2.0.0",
-      minRequiredIOSAppVersion: "1.5.0",
-    );
+    final appVersion = AppVersionMetadata.fromJson({
+      "ios": {
+        "app-id": "585027354",
+        "latest-published-version" : "2.0.0",
+        "min-required-app-version" : "1.5.0",
+      }
+    });
     appVersion.platform = FakePlatform(operatingSystem: Platform.iOS);
     final isUserHasToForceUpdate = await appVersion.isUserHasToForceUpdate();
-    final isThereAnyAvailableUpdate = await appVersion.isThereAnyUpdateAvailable();
+    final isThereAnyAvailableUpdate =
+        await appVersion.isThereAnyUpdateAvailable();
     expect(isUserHasToForceUpdate, false);
     expect(isThereAnyAvailableUpdate, true);
   });
