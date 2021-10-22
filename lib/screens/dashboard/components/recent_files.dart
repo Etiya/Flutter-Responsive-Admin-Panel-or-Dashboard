@@ -1,4 +1,4 @@
-import 'package:admin/models/RecentFile.dart';
+import 'package:admin/models/recent_file.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -13,16 +13,16 @@ class RecentFiles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(defaultPadding),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.all(defaultPadding),
+      decoration: const BoxDecoration(
         color: secondaryColor,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Recent Files",
+            "Mobile App Admin Panel Goals",
             style: Theme.of(context).textTheme.subtitle1,
           ),
           SizedBox(
@@ -30,15 +30,12 @@ class RecentFiles extends StatelessWidget {
             child: DataTable2(
               columnSpacing: defaultPadding,
               minWidth: 600,
-              columns: [
+              columns: const [
                 DataColumn(
-                  label: Text("File Name"),
+                  label: Text("Feature Name"),
                 ),
                 DataColumn(
-                  label: Text("Date"),
-                ),
-                DataColumn(
-                  label: Text("Size"),
+                  label: Text("Status"),
                 ),
               ],
               rows: List.generate(
@@ -64,15 +61,17 @@ DataRow recentFileDataRow(RecentFile fileInfo) {
               height: 30,
               width: 30,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-              child: Text(fileInfo.title!),
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+                child: Text(fileInfo.title!,  maxLines: 2,),
+              ),
             ),
           ],
         ),
       ),
-      DataCell(Text(fileInfo.date!)),
-      DataCell(Text(fileInfo.size!)),
+      DataCell(Text(fileInfo.status!)),
+      // DataCell(Text(fileInfo.size!)),
     ],
   );
 }
