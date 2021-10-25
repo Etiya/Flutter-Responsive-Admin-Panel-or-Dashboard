@@ -21,20 +21,19 @@ class AppVersionScreenState extends State<AppVersionScreen> {
   // Configuration Section
   TextEditingController updateButtonTextController = TextEditingController();
   TextEditingController notNowButtonTextController = TextEditingController();
+  TextEditingController updateTitleController = TextEditingController();
+  TextEditingController forceUpdateDescriptionController = TextEditingController();
+  TextEditingController optionalUpdateDescriptionController = TextEditingController();
 
   // iOS Section
   TextEditingController minRequiredIOSAppVersionController = TextEditingController();
   TextEditingController latestAvailableIOSAppVersionController = TextEditingController();
   TextEditingController iOSAppID = TextEditingController();
-  TextEditingController iOSReleaseInformationTitleController = TextEditingController();
-  TextEditingController iOSReleaseInformationDescriptionController = TextEditingController();
 
   // Android Section
   TextEditingController minRequiredAndroidAppVersionController = TextEditingController();
   TextEditingController latestAvailableAndroidAppVersionController = TextEditingController();
   TextEditingController androidAppID = TextEditingController();
-  TextEditingController androidReleaseInformationTitleController = TextEditingController();
-  TextEditingController androidReleaseInformationDescriptionController = TextEditingController();
 
   AppVersionMetadata? appVersion;
 
@@ -46,18 +45,17 @@ class AppVersionScreenState extends State<AppVersionScreen> {
       // Configuration
       updateButtonTextController.text = appVersion?.configuration?.updateButtonText ?? "";
       notNowButtonTextController.text = appVersion?.configuration?.notNowButtonText ?? "";
+      forceUpdateDescriptionController.text = appVersion?.configuration?.forceUpdateDescription ?? "";
+      optionalUpdateDescriptionController.text = appVersion?.configuration?.optionalUpdateDescription ?? "";
+      updateTitleController.text = appVersion?.configuration?.updateTitle ?? "";
       // iOS
       minRequiredIOSAppVersionController.text = appVersion?.iosApp?.minRequiredAppVersion ?? "";
       latestAvailableIOSAppVersionController.text = appVersion?.iosApp?.latestPublishedVersion ?? "";
       iOSAppID.text = appVersion?.iosApp?.appId ?? "";
-      iOSReleaseInformationTitleController.text = appVersion?.iosApp?.newReleaseInformation?.title ?? "";
-      iOSReleaseInformationDescriptionController.text = appVersion?.iosApp?.newReleaseInformation?.description ?? "";
       // Android
       minRequiredAndroidAppVersionController.text = appVersion?.androidApp?.minRequiredAppVersion ?? "";
       latestAvailableAndroidAppVersionController.text = appVersion?.androidApp?.latestPublishedVersion ?? "";
       androidAppID.text = appVersion?.androidApp?.appId ?? "";
-      androidReleaseInformationTitleController.text = appVersion?.androidApp?.newReleaseInformation?.title ?? "";
-      androidReleaseInformationDescriptionController.text = appVersion?.androidApp?.newReleaseInformation?.description ?? "";
       debugPrint(appVersion.toString());
     });
   }
@@ -67,18 +65,17 @@ class AppVersionScreenState extends State<AppVersionScreen> {
     // Configuration
     updated?.configuration?.updateButtonText = updateButtonTextController.text;
     updated?.configuration?.notNowButtonText = notNowButtonTextController.text;
+    updated?.configuration?.forceUpdateDescription = forceUpdateDescriptionController.text;
+    updated?.configuration?.optionalUpdateDescription = optionalUpdateDescriptionController.text;
+    updated?.configuration?.updateTitle = updateTitleController.text;
     // iOS
     updated?.iosApp?.minRequiredAppVersion = minRequiredIOSAppVersionController.text;
     updated?.iosApp?.latestPublishedVersion = latestAvailableIOSAppVersionController.text;
     updated?.iosApp?.appId = iOSAppID.text;
-    updated?.iosApp?.newReleaseInformation?.title = iOSReleaseInformationTitleController.text;
-    updated?.iosApp?.newReleaseInformation?.description = iOSReleaseInformationDescriptionController.text;
     // Android
     updated?.androidApp?.minRequiredAppVersion = minRequiredAndroidAppVersionController.text;
     updated?.androidApp?.latestPublishedVersion = latestAvailableAndroidAppVersionController.text;
     updated?.androidApp?.appId = androidAppID.text;
-    updated?.androidApp?.newReleaseInformation?.title = androidReleaseInformationTitleController.text;
-    updated?.androidApp?.newReleaseInformation?.description = androidReleaseInformationDescriptionController.text;
     await db.child("app-version-update").set(appVersion?.toJson());
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Changes Saved')),
@@ -92,6 +89,34 @@ class AppVersionScreenState extends State<AppVersionScreen> {
         child: Text("Configuration", style: Theme.of(context).textTheme.headline5, textAlign: TextAlign.start,),
       ),
       const Divider(),
+      TextFormField(
+        decoration: const InputDecoration(
+            labelText: 'Update Title'),
+        controller: updateTitleController,
+      ),
+      const SizedBox(
+        height: 16,
+      ),
+      TextFormField(
+        decoration: const InputDecoration(
+            labelText: 'Force Update Description'),
+        controller: forceUpdateDescriptionController,
+        keyboardType: TextInputType.multiline,
+        maxLines: null,
+      ),
+      const SizedBox(
+        height: 16,
+      ),
+      TextFormField(
+        decoration: const InputDecoration(
+            labelText: 'Optional Update Description'),
+        keyboardType: TextInputType.multiline,
+        maxLines: null,
+        controller: optionalUpdateDescriptionController,
+      ),
+      const SizedBox(
+        height: 16,
+      ),
       TextFormField(
         decoration: const InputDecoration(
             labelText: 'Update Button Text',
@@ -139,24 +164,6 @@ class AppVersionScreenState extends State<AppVersionScreen> {
       ),
       TextFormField(
         decoration: const InputDecoration(
-            labelText: 'iOS App Release Note Title'),
-        controller: iOSReleaseInformationTitleController,
-      ),
-      const SizedBox(
-        height: 16,
-      ),
-      TextFormField(
-        decoration: const InputDecoration(
-            labelText: 'iOS App Release Note Description'),
-        keyboardType: TextInputType.multiline,
-        maxLines: null,
-        controller: iOSReleaseInformationDescriptionController,
-      ),
-      const SizedBox(
-        height: 16,
-      ),
-      TextFormField(
-        decoration: const InputDecoration(
             labelText: 'iOS App ID', hintText: "1546984240"),
         controller: iOSAppID,
       ),
@@ -187,24 +194,6 @@ class AppVersionScreenState extends State<AppVersionScreen> {
             labelText: 'Android App Version on store',
             hintText: "x.x.x"),
         controller: latestAvailableAndroidAppVersionController,
-      ),
-      const SizedBox(
-        height: 16,
-      ),
-      TextFormField(
-        decoration: const InputDecoration(
-            labelText: 'Android App Release Note Title'),
-        controller: androidReleaseInformationTitleController,
-      ),
-      const SizedBox(
-        height: 16,
-      ),
-      TextFormField(
-        decoration: const InputDecoration(
-            labelText: 'Android App Release Note Description'),
-        keyboardType: TextInputType.multiline,
-        maxLines: null,
-        controller: androidReleaseInformationDescriptionController,
       ),
       const SizedBox(
         height: 16,

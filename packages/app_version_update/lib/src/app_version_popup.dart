@@ -32,20 +32,27 @@ class AppVersionPopup {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                if (appVersion.currentReleaseInformation?.title != null)
+                if (appVersion.configuration?.updateTitle != null)
                   ...[
                     Text(
-                      appVersion.currentReleaseInformation?.title ?? "",
+                      appVersion.configuration?.updateTitle ?? "",
                       style: Theme.of(context).textTheme.headline5,
                       textAlign: TextAlign.center,
                     ),
                     const Divider()
                   ],
-                Text(
-                  appVersion.currentReleaseInformation?.description ?? "",
-                  softWrap: true,
-                  textAlign: TextAlign.center,
-                ),
+                if (isUserHasToForceUpdate)
+                  Text(
+                    appVersion.configuration?.forceUpdateDescription ?? "",
+                    softWrap: true,
+                    textAlign: TextAlign.center,
+                  ),
+                if (!isUserHasToForceUpdate)
+                  Text(
+                    appVersion.configuration?.optionalUpdateDescription ?? "",
+                    softWrap: true,
+                    textAlign: TextAlign.center,
+                  ),
                 Row(
                   children: [
                     if (!isUserHasToForceUpdate)
