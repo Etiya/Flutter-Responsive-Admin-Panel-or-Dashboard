@@ -2,7 +2,7 @@ import 'package:admin/controllers/menu_controller.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:app_version_update/app_version_update.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../main.dart';
 import '../../responsive.dart';

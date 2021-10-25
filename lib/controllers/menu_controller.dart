@@ -20,13 +20,13 @@ class MenuController extends ChangeNotifier {
 
   Widget get menuScreenWidget {
     switch (activeMenuScreen) {
-      case MenuScreen.dashboard:  return DashboardScreen();
-      case MenuScreen.appVersion: return AppVersionScreen();
-      default: return DashboardScreen();
+      case MenuScreen.dashboard:  return const DashboardScreen();
+      case MenuScreen.appVersion: return const AppVersionScreen();
+      default: return const DashboardScreen();
     }
   }
 
-  MenuScreen activeMenuScreen = MenuScreen.appVersion;
+  MenuScreen activeMenuScreen = MenuScreen.dashboard;
 
   setMenuScreen(MenuScreen screen) {
     activeMenuScreen = screen;

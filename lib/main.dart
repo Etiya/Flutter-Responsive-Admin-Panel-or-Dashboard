@@ -9,7 +9,7 @@ import 'package:firebase_core/firebase_core.dart';
 
 late FirebaseApp app;
 
-Future main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   app = await Firebase.initializeApp();
   runApp(const MyApp());
@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
             create: (context) => MenuController(),
           ),
         ],
-        child: MainScreen(),
+        child: const MainScreen(),
       ),
     );
   }
