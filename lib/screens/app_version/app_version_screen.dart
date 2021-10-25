@@ -148,6 +148,8 @@ class AppVersionScreenState extends State<AppVersionScreen> {
       TextFormField(
         decoration: const InputDecoration(
             labelText: 'iOS App Release Note Description'),
+        keyboardType: TextInputType.multiline,
+        maxLines: null,
         controller: iOSReleaseInformationDescriptionController,
       ),
       const SizedBox(
@@ -200,6 +202,8 @@ class AppVersionScreenState extends State<AppVersionScreen> {
       TextFormField(
         decoration: const InputDecoration(
             labelText: 'Android App Release Note Description'),
+        keyboardType: TextInputType.multiline,
+        maxLines: null,
         controller: androidReleaseInformationDescriptionController,
       ),
       const SizedBox(

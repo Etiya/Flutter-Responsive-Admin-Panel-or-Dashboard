@@ -1,4 +1,5 @@
 import 'package:admin/controllers/menu_controller.dart';
+import 'package:admin/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -13,40 +14,40 @@ class SideMenu extends StatelessWidget {
     return Drawer(
       child: ListView(
         children: [
-          DrawerHeader(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 75,
-                  child: FittedBox(
-                    child: Image.asset(
-                      "assets/images/logo.png",
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ),
-                // Image.asset("assets/images/logo.png"),
-                const Text(
-                  "ETIYA",
-                  style: TextStyle(color: Colors.white, fontSize: 21),
-                ),
-              ],
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListTile(
+              leading: Image.asset('assets/images/logo.png'),
+              title: const Text(
+                "ETIYA",
+                style: TextStyle(color: Colors.white, fontSize: 21),
+              ),
             ),
           ),
+          const  Divider(),
           DrawerListTile(
             title: "Dashboard",
             svgSrc: "assets/icons/menu_dashboard.svg",
-            press: () => context
+            press: () {
+              if (Responsive.isMobile(context)) {
+                Navigator.of(context).pop();
+              }
+              context
                   .read<MenuController>()
-                  .setMenuScreen(MenuScreen.dashboard),
+                  .setMenuScreen(MenuScreen.dashboard);
+            },
           ),
           DrawerListTile(
             title: "App Version",
             svgSrc: "assets/icons/menu_doc.svg",
-            press: () => context
-                .read<MenuController>()
-                .setMenuScreen(MenuScreen.appVersion),
+            press: () {
+              if (Responsive.isMobile(context)) {
+                Navigator.of(context).pop();
+              }
+              context
+                  .read<MenuController>()
+                  .setMenuScreen(MenuScreen.appVersion);
+            },
           ),
         ],
       ),
