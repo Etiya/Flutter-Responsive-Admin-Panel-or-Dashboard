@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "891043151640",
+    "firebase_url": "https://mobileadminpanel-default-rtdb.firebaseio.com",
+    "project_id": "mobileadminpanel",
+    "storage_bucket": "mobileadminpanel.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:891043151640:android:71de5164591a5f128e686d",
+        "android_client_info": {
+          "package_name": "com.etiya.mobile_admin_panel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "891043151640-5ma1l7qa55qi7a68qf26c2kvfiqbdl9p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUzWKofyjeotVGabo8PdVfV_ZwzOspX3I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "891043151640-5ma1l7qa55qi7a68qf26c2kvfiqbdl9p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:891043151640:android:f877a6ed09bfd2048e686d",
+        "android_client_info": {
+          "package_name": "com.etiya.mobile_admin_panel_client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "891043151640-5ma1l7qa55qi7a68qf26c2kvfiqbdl9p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUzWKofyjeotVGabo8PdVfV_ZwzOspX3I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "891043151640-5ma1l7qa55qi7a68qf26c2kvfiqbdl9p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

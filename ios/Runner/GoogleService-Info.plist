@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>891043151640-p9dqd37lfcorjkku9n2n77mj1at1b36d.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.891043151640-p9dqd37lfcorjkku9n2n77mj1at1b36d</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBhsKLPqY-nSTvalZHhIYyZmvRqZMEMdrY</string>
+	<key>GCM_SENDER_ID</key>
+	<string>891043151640</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.etiya.mobile-admin-panel</string>
+	<key>PROJECT_ID</key>
+	<string>mobileadminpanel</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mobileadminpanel.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:891043151640:ios:44aa297d3abd9f938e686d</string>
+	<key>DATABASE_URL</key>
+	<string>https://mobileadminpanel-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

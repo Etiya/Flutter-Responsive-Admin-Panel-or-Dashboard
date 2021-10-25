@@ -42,7 +42,7 @@ class AppVersionScreenState extends State<AppVersionScreen> {
   void initState() {
     super.initState();
     db.child("app-version-update").once().then((snapshot) {
-      appVersion = AppVersionMetadata.fromJson(snapshot.value);
+      appVersion = AppVersionMetadata.fromJson(Map<String, dynamic>.from(snapshot.value));
       // Configuration
       updateButtonTextController.text = appVersion?.configuration?.updateButtonText ?? "";
       notNowButtonTextController.text = appVersion?.configuration?.notNowButtonText ?? "";

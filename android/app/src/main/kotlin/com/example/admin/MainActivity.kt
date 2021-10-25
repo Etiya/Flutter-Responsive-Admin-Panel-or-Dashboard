@@ -1,4 +1,4 @@
-package com.example.admin
+package com.etiya.mobile_admin_panel
 
 import io.flutter.embedding.android.FlutterActivity
 
