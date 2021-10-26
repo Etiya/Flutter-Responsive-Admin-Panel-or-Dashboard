@@ -3,6 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:launch_review/launch_review.dart';
 
 class AppVersionPopup {
+  static const appVersionPopupKey = Key("app_version_popup");
+  static const updateButtonKey = Key("app_version_force_update_btn");
+  static const notNowButtonKey = Key("app_version_optional_update_btn");
+  static const updateTitleKey = Key("app_version_update_title");
+  static const optionalUpdateDescriptionKey = Key("app_version_optional_update_description");
+  static const forceUpdateDescriptionKey = Key("app_version_force_update_description");
+
   static showIfNeeded({
     required AppVersionMetadata appVersion,
     required BuildContext context,
@@ -19,6 +26,7 @@ class AppVersionPopup {
       barrierDismissible: !isUserHasToForceUpdate,
       context: context,
       builder: (_) => Dialog(
+        key: appVersionPopupKey,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(16.0))
         ),
@@ -36,6 +44,7 @@ class AppVersionPopup {
                   ...[
                     Text(
                       appVersion.configuration?.updateTitle ?? "",
+                      key: updateTitleKey,
                       style: Theme.of(context).textTheme.headline5,
                       textAlign: TextAlign.center,
                     ),
@@ -44,12 +53,14 @@ class AppVersionPopup {
                 if (isUserHasToForceUpdate)
                   Text(
                     appVersion.configuration?.forceUpdateDescription ?? "",
+                    key: forceUpdateDescriptionKey,
                     softWrap: true,
                     textAlign: TextAlign.center,
                   ),
                 if (!isUserHasToForceUpdate)
                   Text(
                     appVersion.configuration?.optionalUpdateDescription ?? "",
+                    key: optionalUpdateDescriptionKey,
                     softWrap: true,
                     textAlign: TextAlign.center,
                   ),
@@ -57,12 +68,14 @@ class AppVersionPopup {
                   children: [
                     if (!isUserHasToForceUpdate)
                       TextButton(
+                        key: notNowButtonKey,
                         onPressed: () {},
                         child: Text(
                           appVersion.configuration?.notNowButtonText ?? "Not now",
                         ),
                       ),
                     TextButton(
+                      key: updateButtonKey,
                       onPressed: () {
                         LaunchReview.launch(
                           androidAppId: appVersion.androidApp?.appId,

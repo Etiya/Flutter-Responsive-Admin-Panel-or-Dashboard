@@ -37,15 +37,13 @@ class AppPlatform {
   String? latestPublishedVersion;
   String? minRequiredAppVersion;
 
-  factory AppPlatform.fromJson(Map<String, dynamic>? json) =>
-      AppPlatform(
+  factory AppPlatform.fromJson(Map<String, dynamic>? json) => AppPlatform(
         appId: json?["app-id"],
         latestPublishedVersion: json?["latest-published-version"],
         minRequiredAppVersion: json?["min-required-app-version"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "app-id": appId,
         "latest-published-version": latestPublishedVersion,
         "min-required-app-version": minRequiredAppVersion,
@@ -67,22 +65,20 @@ class Configuration {
   String? optionalUpdateDescription;
   String? updateTitle;
 
-  factory Configuration.fromJson(Map<String, dynamic>? json) =>
-      Configuration(
-          notNowButtonText: json?["not-now-button-text"],
-          updateButtonText: json?["update-button-text"],
-          forceUpdateDescription: json?["force-update-description"],
-          optionalUpdateDescription: json?["optional-update-description"],
-          updateTitle: json?["update-title"]
-      );
+  factory Configuration.fromJson(Map<String, dynamic>? json) => Configuration(
+      notNowButtonText: json?["not-now-button-text"],
+      updateButtonText: json?["update-button-text"],
+      forceUpdateDescription: json?["force-update-description"],
+      optionalUpdateDescription: json?["optional-update-description"],
+      updateTitle: json?["update-title"]);
 
   Map<String, dynamic> toJson() => {
-    "not-now-button-text": notNowButtonText,
-    "update-button-text": updateButtonText,
-    "force-update-description": forceUpdateDescription,
-    "optional-update-description": optionalUpdateDescription,
-    "update-title": updateTitle ,
-  };
+        "not-now-button-text": notNowButtonText,
+        "update-button-text": updateButtonText,
+        "force-update-description": forceUpdateDescription,
+        "optional-update-description": optionalUpdateDescription,
+        "update-title": updateTitle,
+      };
 }
 
 class AppVersionMetadata {
@@ -98,15 +94,24 @@ class AppVersionMetadata {
 
   factory AppVersionMetadata.fromJson(Map<String, dynamic>? json) =>
       AppVersionMetadata(
-        configuration: Configuration.fromJson(
-            Map<String, dynamic>.from(json?["configuration"])),
-        iosApp: AppPlatform.fromJson(Map<String, dynamic>.from(json?["ios"])),
-        androidApp: AppPlatform.fromJson(
-            Map<String, dynamic>.from(json?["android"])),
+        configuration: json?["configuration"] != null
+            ? Configuration.fromJson(
+                Map<String, dynamic>.from(json?["configuration"]),
+              )
+            : null,
+        iosApp: json?["ios"] != null
+            ? AppPlatform.fromJson(
+                Map<String, dynamic>.from(json?["ios"]),
+              )
+            : null,
+        androidApp: json?["android"] != null
+            ? AppPlatform.fromJson(
+                Map<String, dynamic>.from(json?["android"]),
+              )
+            : null,
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "ios": iosApp?.toJson(),
         "android": androidApp?.toJson(),
         "configuration": configuration?.toJson()
@@ -139,7 +144,7 @@ class AppVersionMetadata {
         int.tryParse(iosApp?.latestPublishedVersion?.trimNonNumeric ?? "0") ??
             -1;
     final int latestAndroidVersion = int.tryParse(
-        androidApp?.latestPublishedVersion?.trimNonNumeric ?? "0") ??
+            androidApp?.latestPublishedVersion?.trimNonNumeric ?? "0") ??
         -1;
 
     _isUserHasToForceUpdate = false;
@@ -152,7 +157,7 @@ class AppVersionMetadata {
       }
 
       final int _minRequiredAndroidAppVersion = int.tryParse(
-          androidApp?.minRequiredAppVersion?.trimNonNumeric ?? "0") ??
+              androidApp?.minRequiredAppVersion?.trimNonNumeric ?? "0") ??
           -1;
       if (currentVersion < _minRequiredAndroidAppVersion) {
         _isUserHasToForceUpdate = true;
