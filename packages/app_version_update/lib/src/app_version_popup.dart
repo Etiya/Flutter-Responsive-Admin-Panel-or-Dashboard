@@ -25,70 +25,73 @@ class AppVersionPopup {
     showDialog(
       barrierDismissible: !isUserHasToForceUpdate,
       context: context,
-      builder: (_) => Dialog(
-        key: appVersionPopupKey,
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(16.0))
-        ),
-        child: Container(
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(16)),
+      builder: (_) => WillPopScope(
+        onWillPop: () => Future.value(!isUserHasToForceUpdate),
+        child: Dialog(
+          key: appVersionPopupKey,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(16.0))
           ),
-          width: MediaQuery.of(context).size.width * 0.8,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (appVersion.configuration?.updateTitle != null)
-                  ...[
+          child: Container(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+            ),
+            width: MediaQuery.of(context).size.width * 0.8,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (appVersion.configuration?.updateTitle != null)
+                    ...[
+                      Text(
+                        appVersion.configuration?.updateTitle ?? "",
+                        key: updateTitleKey,
+                        style: Theme.of(context).textTheme.headline5,
+                        textAlign: TextAlign.center,
+                      ),
+                      const Divider()
+                    ],
+                  if (isUserHasToForceUpdate)
                     Text(
-                      appVersion.configuration?.updateTitle ?? "",
-                      key: updateTitleKey,
-                      style: Theme.of(context).textTheme.headline5,
+                      appVersion.configuration?.forceUpdateDescription ?? "",
+                      key: forceUpdateDescriptionKey,
+                      softWrap: true,
                       textAlign: TextAlign.center,
                     ),
-                    const Divider()
-                  ],
-                if (isUserHasToForceUpdate)
-                  Text(
-                    appVersion.configuration?.forceUpdateDescription ?? "",
-                    key: forceUpdateDescriptionKey,
-                    softWrap: true,
-                    textAlign: TextAlign.center,
-                  ),
-                if (!isUserHasToForceUpdate)
-                  Text(
-                    appVersion.configuration?.optionalUpdateDescription ?? "",
-                    key: optionalUpdateDescriptionKey,
-                    softWrap: true,
-                    textAlign: TextAlign.center,
-                  ),
-                Row(
-                  children: [
-                    if (!isUserHasToForceUpdate)
+                  if (!isUserHasToForceUpdate)
+                    Text(
+                      appVersion.configuration?.optionalUpdateDescription ?? "",
+                      key: optionalUpdateDescriptionKey,
+                      softWrap: true,
+                      textAlign: TextAlign.center,
+                    ),
+                  Row(
+                    children: [
+                      if (!isUserHasToForceUpdate)
+                        TextButton(
+                          key: notNowButtonKey,
+                          onPressed: () {},
+                          child: Text(
+                            appVersion.configuration?.notNowButtonText ?? "Not now",
+                          ),
+                        ),
                       TextButton(
-                        key: notNowButtonKey,
-                        onPressed: () {},
+                        key: updateButtonKey,
+                        onPressed: () {
+                          LaunchReview.launch(
+                            androidAppId: appVersion.androidApp?.appId,
+                            iOSAppId: appVersion.iosApp?.appId,
+                          );
+                        },
                         child: Text(
-                          appVersion.configuration?.notNowButtonText ?? "Not now",
+                          appVersion.configuration?.updateButtonText ?? "Update",
                         ),
                       ),
-                    TextButton(
-                      key: updateButtonKey,
-                      onPressed: () {
-                        LaunchReview.launch(
-                          androidAppId: appVersion.androidApp?.appId,
-                          iOSAppId: appVersion.iosApp?.appId,
-                        );
-                      },
-                      child: Text(
-                        appVersion.configuration?.updateButtonText ?? "Update",
-                      ),
-                    ),
-                  ],
-                )
-              ],
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),
