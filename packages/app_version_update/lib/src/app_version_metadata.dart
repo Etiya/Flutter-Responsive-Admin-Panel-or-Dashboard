@@ -4,23 +4,23 @@ import 'package:package_info_plus/package_info_plus.dart';
 /*
 Sample JSON
 {
-  "app-version-update" : {
+  "appVersionUpdate" : {
     "android" : {
-      "app-id" : "com.iyaffle.kural",
-      "latest-published-version" : "1.0.0",
-      "min-required-app-version" : "1.0.0"
+      "appId" : "com.iyaffle.kural",
+      "latestPublishedVersion" : "1.0.0",
+      "minRequiredAppVersion" : "1.0.0"
     },
-    "configuration" : {
-      "not-now-button-text" : "Not now",
-      "update-button-text" : "Update",
-      "update-description" : "There is a new version, you can download if you want",
-      "optional-update-description" : "There is a new version, you need to update to continue",
-      "update-title" : "New Release is available"
+    "configuration": {
+      "notNowButtonText" : "Not now",
+      "updateButtonText" : "Update",
+      "forceUpdateDescription" : "There is a new version, you can download if you want",
+      "optionalUpdateDescription" : "There is a new version, you need to update to continue",
+      "updateTitle" : "New Release is available"
     },
     "ios" : {
-      "app-id" : "585027354",
-      "latest-published-version" : "2.3.0",
-      "min-required-app-version" : "2.0.0"
+      "appId" : "585027354",
+      "latestPublishedVersion" : "2.3.0",
+      "minRequiredAppVersion" : "2.0.0"
     }
   }
 }
@@ -38,15 +38,15 @@ class AppPlatform {
   String? minRequiredAppVersion;
 
   factory AppPlatform.fromJson(Map<String, dynamic>? json) => AppPlatform(
-        appId: json?["app-id"],
-        latestPublishedVersion: json?["latest-published-version"],
-        minRequiredAppVersion: json?["min-required-app-version"],
+        appId: json?["appId"],
+        latestPublishedVersion: json?["latestPublishedVersion"],
+        minRequiredAppVersion: json?["minRequiredAppVersion"],
       );
 
   Map<String, dynamic> toJson() => {
-        "app-id": appId,
-        "latest-published-version": latestPublishedVersion,
-        "min-required-app-version": minRequiredAppVersion,
+        "appId": appId,
+        "latestPublishedVersion": latestPublishedVersion,
+        "minRequiredAppVersion": minRequiredAppVersion,
       };
 }
 
@@ -66,18 +66,18 @@ class Configuration {
   String? updateTitle;
 
   factory Configuration.fromJson(Map<String, dynamic>? json) => Configuration(
-      notNowButtonText: json?["not-now-button-text"],
-      updateButtonText: json?["update-button-text"],
-      forceUpdateDescription: json?["force-update-description"],
-      optionalUpdateDescription: json?["optional-update-description"],
-      updateTitle: json?["update-title"]);
+      notNowButtonText: json?["notNowButtonText"],
+      updateButtonText: json?["updateButtonText"],
+      forceUpdateDescription: json?["forceUpdateDescription"],
+      optionalUpdateDescription: json?["optionalUpdateDescription"],
+      updateTitle: json?["updateTitle"]);
 
   Map<String, dynamic> toJson() => {
-        "not-now-button-text": notNowButtonText,
-        "update-button-text": updateButtonText,
-        "force-update-description": forceUpdateDescription,
-        "optional-update-description": optionalUpdateDescription,
-        "update-title": updateTitle,
+        "notNowButtonText": notNowButtonText,
+        "updateButtonText": updateButtonText,
+        "forceUpdateDescription": forceUpdateDescription,
+        "optionalUpdateDescription": optionalUpdateDescription,
+        "updateTitle": updateTitle,
       };
 }
 

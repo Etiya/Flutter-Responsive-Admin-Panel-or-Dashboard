@@ -42,9 +42,9 @@ void main() {
     setCurrentMockVersion("2.0.0");
     final appVersion = AppVersionMetadata.fromJson({
       "ios": {
-        "app-id": "585027354",
-        "latest-published-version" : "2.0.0",
-        "min-required-app-version" : "2.0.0",
+        "appId": "585027354",
+        "latestPublishedVersion" : "2.0.0",
+        "minRequiredAppVersion" : "2.0.0",
       }
     });
     appVersion.platform = FakePlatform(operatingSystem: Platform.iOS);
@@ -60,9 +60,9 @@ void main() {
     setCurrentMockVersion("1.0.0");
     final appVersion = AppVersionMetadata.fromJson({
       "ios": {
-        "app-id": "585027354",
-        "latest-published-version" : "2.0.0",
-        "min-required-app-version" : "2.0.0",
+        "appId": "585027354",
+        "latestPublishedVersion" : "2.0.0",
+        "minRequiredAppVersion" : "2.0.0",
       }
     });
     appVersion.platform = FakePlatform(operatingSystem: Platform.iOS);
@@ -78,9 +78,9 @@ void main() {
     setCurrentMockVersion("1.6.0");
     final appVersion = AppVersionMetadata.fromJson({
       "ios": {
-        "app-id": "585027354",
-        "latest-published-version" : "2.0.0",
-        "min-required-app-version" : "1.5.0",
+        "appId": "585027354",
+        "latestPublishedVersion" : "2.0.0",
+        "minRequiredAppVersion" : "1.5.0",
       }
     });
     appVersion.platform = FakePlatform(operatingSystem: Platform.iOS);

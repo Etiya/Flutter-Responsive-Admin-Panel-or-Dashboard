@@ -42,8 +42,8 @@ void main() {
       setCurrentMockVersion("2.0.0");
       final appVersion = AppVersionMetadata.fromJson({
         "ios": {
-          "latest-published-version": "2.0.0",
-          "min-required-app-version": "2.0.0",
+          "latestPublishedVersion": "2.0.0",
+          "minRequiredAppVersion": "2.0.0",
         }
       });
       appVersion.platform = FakePlatform(operatingSystem: Platform.iOS);
@@ -72,8 +72,8 @@ void main() {
       setCurrentMockVersion("1.0.0");
       final appVersion = AppVersionMetadata.fromJson({
         "ios": {
-          "latest-published-version": "2.0.0",
-          "min-required-app-version": "2.0.0",
+          "latestPublishedVersion": "2.0.0",
+          "minRequiredAppVersion": "2.0.0",
         }
       });
       appVersion.platform = FakePlatform(operatingSystem: Platform.iOS);
@@ -104,15 +104,15 @@ void main() {
       setCurrentMockVersion("1.6.0");
       final appVersion = AppVersionMetadata.fromJson({
         "configuration" : {
-          "not-now-button-text" : "Not now",
-          "update-button-text" : "Update",
-          "force-update-description" : "There is a new version, you can download if you want",
-          "optional-update-description" : "There is a new version, you need to update to continue",
-          "update-title" : "New Release is available"
+          "notNowButtonText" : "Not now",
+          "updateButtonText" : "Update",
+          "forceUpdateDescription" : "There is a new version, you can download if you want",
+          "optionalUpdateDescription" : "There is a new version, you need to update to continue",
+          "updateTitle" : "New Release is available"
         },
         "ios": {
-          "latest-published-version": "2.0.0",
-          "min-required-app-version": "1.5.0",
+          "latestPublishedVersion": "2.0.0",
+          "minRequiredAppVersion": "1.5.0",
         }
       });
       appVersion.platform = FakePlatform(operatingSystem: Platform.iOS);

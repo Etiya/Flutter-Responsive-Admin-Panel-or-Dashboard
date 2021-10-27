@@ -40,23 +40,25 @@ class AppVersionScreenState extends State<AppVersionScreen> {
   @override
   void initState() {
     super.initState();
-    db.child("app-version-update").once().then((snapshot) {
+    db.child("appVersionUpdate").once().then((snapshot) {
       appVersion = AppVersionMetadata.fromJson(Map<String, dynamic>.from(snapshot.value));
-      // Configuration
-      updateButtonTextController.text = appVersion?.configuration?.updateButtonText ?? "";
-      notNowButtonTextController.text = appVersion?.configuration?.notNowButtonText ?? "";
-      forceUpdateDescriptionController.text = appVersion?.configuration?.forceUpdateDescription ?? "";
-      optionalUpdateDescriptionController.text = appVersion?.configuration?.optionalUpdateDescription ?? "";
-      updateTitleController.text = appVersion?.configuration?.updateTitle ?? "";
-      // iOS
-      minRequiredIOSAppVersionController.text = appVersion?.iosApp?.minRequiredAppVersion ?? "";
-      latestAvailableIOSAppVersionController.text = appVersion?.iosApp?.latestPublishedVersion ?? "";
-      iOSAppID.text = appVersion?.iosApp?.appId ?? "";
-      // Android
-      minRequiredAndroidAppVersionController.text = appVersion?.androidApp?.minRequiredAppVersion ?? "";
-      latestAvailableAndroidAppVersionController.text = appVersion?.androidApp?.latestPublishedVersion ?? "";
-      androidAppID.text = appVersion?.androidApp?.appId ?? "";
-      debugPrint(appVersion.toString());
+      setState(() {
+        // Configuration
+        updateButtonTextController.text = appVersion?.configuration?.updateButtonText ?? "";
+        notNowButtonTextController.text = appVersion?.configuration?.notNowButtonText ?? "";
+        forceUpdateDescriptionController.text = appVersion?.configuration?.forceUpdateDescription ?? "";
+        optionalUpdateDescriptionController.text = appVersion?.configuration?.optionalUpdateDescription ?? "";
+        updateTitleController.text = appVersion?.configuration?.updateTitle ?? "";
+        // iOS
+        minRequiredIOSAppVersionController.text = appVersion?.iosApp?.minRequiredAppVersion ?? "";
+        latestAvailableIOSAppVersionController.text = appVersion?.iosApp?.latestPublishedVersion ?? "";
+        iOSAppID.text = appVersion?.iosApp?.appId ?? "";
+        // Android
+        minRequiredAndroidAppVersionController.text = appVersion?.androidApp?.minRequiredAppVersion ?? "";
+        latestAvailableAndroidAppVersionController.text = appVersion?.androidApp?.latestPublishedVersion ?? "";
+        androidAppID.text = appVersion?.androidApp?.appId ?? "";
+        debugPrint(appVersion.toString());
+      });
     });
   }
 
@@ -76,7 +78,7 @@ class AppVersionScreenState extends State<AppVersionScreen> {
     updated?.androidApp?.minRequiredAppVersion = minRequiredAndroidAppVersionController.text;
     updated?.androidApp?.latestPublishedVersion = latestAvailableAndroidAppVersionController.text;
     updated?.androidApp?.appId = androidAppID.text;
-    await db.child("app-version-update").set(appVersion?.toJson());
+    await db.child("appVersionUpdate").set(appVersion?.toJson());
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Changes Saved')),
     );
