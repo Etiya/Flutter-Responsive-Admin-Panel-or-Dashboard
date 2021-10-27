@@ -1,10 +1,12 @@
 import 'package:admin/screens/app_version/app_version_screen.dart';
 import 'package:admin/screens/dashboard/dashboard_screen.dart';
+import 'package:admin/screens/maintenance_mode/maintenance_mode_screen.dart';
 import 'package:flutter/material.dart';
 
 enum MenuScreen {
   dashboard,
-  appVersion
+  appVersion,
+  maintenanceMode,
 }
 
 class MenuController extends ChangeNotifier {
@@ -24,6 +26,7 @@ class MenuController extends ChangeNotifier {
     switch (activeMenuScreen) {
       case MenuScreen.dashboard:  return const DashboardScreen();
       case MenuScreen.appVersion: return const AppVersionScreen();
+      case MenuScreen.maintenanceMode: return const MaintenanceModeScreen();
       default: return const DashboardScreen();
     }
   }

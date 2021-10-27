@@ -49,6 +49,18 @@ class SideMenu extends StatelessWidget {
                   .setMenuScreen(MenuScreen.appVersion);
             },
           ),
+          DrawerListTile(
+            title: "Maintenance Mode",
+            svgSrc: "assets/icons/menu_doc.svg",
+            press: () {
+              if (Responsive.isMobile(context)) {
+                Navigator.of(context).pop();
+              }
+              context
+                  .read<MenuController>()
+                  .setMenuScreen(MenuScreen.maintenanceMode);
+            },
+          ),
         ],
       ),
     );

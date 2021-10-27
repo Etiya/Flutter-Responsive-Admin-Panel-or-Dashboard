@@ -26,17 +26,21 @@ dependencies:
 
   cupertino_icons: ^1.0.3
 
-  google_fonts: ^2.1.0
+  data_table_2: ^2.0.3
+  flutter_form_builder: ^6.2.0
   flutter_svg: ^0.22.0
   fl_chart: ^0.36.1
+  google_fonts: ^2.1.0
   provider: ^5.0.0
-  data_table_2: ^2.0.3
 
   firebase_core: "^1.7.0"
   firebase_database: "^8.0.0"
 
   app_version_update:
     path: ./packages/app_version_update
+
+  maintenance_mode:
+    path: ./packages/maintenance_mode
 
 dev_dependencies:
   flutter_test:
