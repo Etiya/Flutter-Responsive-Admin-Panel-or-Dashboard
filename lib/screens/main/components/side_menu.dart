@@ -2,6 +2,7 @@ import 'package:admin/controllers/menu_controller.dart';
 import 'package:admin/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class SideMenu extends StatelessWidget {
@@ -24,10 +25,10 @@ class SideMenu extends StatelessWidget {
               ),
             ),
           ),
-          const  Divider(),
+          const Divider(),
           DrawerListTile(
             title: "Dashboard",
-            svgSrc: "assets/icons/menu_dashboard.svg",
+            icon: FontAwesomeIcons.chartLine,
             press: () {
               if (Responsive.isMobile(context)) {
                 Navigator.of(context).pop();
@@ -39,7 +40,7 @@ class SideMenu extends StatelessWidget {
           ),
           DrawerListTile(
             title: "App Version",
-            svgSrc: "assets/icons/menu_doc.svg",
+            icon: FontAwesomeIcons.rocket,
             press: () {
               if (Responsive.isMobile(context)) {
                 Navigator.of(context).pop();
@@ -51,7 +52,7 @@ class SideMenu extends StatelessWidget {
           ),
           DrawerListTile(
             title: "Maintenance Mode",
-            svgSrc: "assets/icons/menu_doc.svg",
+            icon: FontAwesomeIcons.tools,
             press: () {
               if (Responsive.isMobile(context)) {
                 Navigator.of(context).pop();
@@ -71,11 +72,12 @@ class DrawerListTile extends StatelessWidget {
   const DrawerListTile({
     Key? key,
     required this.title,
-    required this.svgSrc,
+    required this.icon,
     required this.press,
   }) : super(key: key);
 
-  final String title, svgSrc;
+  final String title;
+  final IconData icon;
   final VoidCallback press;
 
   @override
@@ -83,10 +85,10 @@ class DrawerListTile extends StatelessWidget {
     return ListTile(
       onTap: press,
       horizontalTitleGap: 0.0,
-      leading: SvgPicture.asset(
-        svgSrc,
-        color: Colors.white54,
-        height: 16,
+      leading: FaIcon(
+        icon,
+        color: Colors.white70,
+        size: 18,
       ),
       title: Text(
         title,

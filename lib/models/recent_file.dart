@@ -38,7 +38,7 @@ List demoRecentFiles = [
   RecentFile(
     icon: "assets/icons/excle_file.svg",
     title: "Maintenance Mode",
-    status: "Open",
+    status: "In Development",
   ),
   RecentFile(
     icon: "assets/icons/excle_file.svg",
