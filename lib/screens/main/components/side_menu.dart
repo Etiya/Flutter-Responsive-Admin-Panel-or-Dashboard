@@ -27,7 +27,7 @@ class SideMenu extends StatelessWidget {
           ),
           const Divider(),
           DrawerListTile(
-            title: "Dashboard",
+            menuScreen: MenuScreen.dashboard,
             icon: FontAwesomeIcons.chartLine,
             press: () {
               if (Responsive.isMobile(context)) {
@@ -39,7 +39,7 @@ class SideMenu extends StatelessWidget {
             },
           ),
           DrawerListTile(
-            title: "App Version",
+            menuScreen: MenuScreen.appVersion,
             icon: FontAwesomeIcons.rocket,
             press: () {
               if (Responsive.isMobile(context)) {
@@ -51,7 +51,7 @@ class SideMenu extends StatelessWidget {
             },
           ),
           DrawerListTile(
-            title: "Maintenance Mode",
+            menuScreen: MenuScreen.maintenanceMode,
             icon: FontAwesomeIcons.tools,
             press: () {
               if (Responsive.isMobile(context)) {
@@ -71,12 +71,12 @@ class SideMenu extends StatelessWidget {
 class DrawerListTile extends StatelessWidget {
   const DrawerListTile({
     Key? key,
-    required this.title,
+    required this.menuScreen,
     required this.icon,
     required this.press,
   }) : super(key: key);
 
-  final String title;
+  final MenuScreen menuScreen;
   final IconData icon;
   final VoidCallback press;
 
@@ -91,8 +91,16 @@ class DrawerListTile extends StatelessWidget {
         size: 18,
       ),
       title: Text(
-        title,
-        style: const TextStyle(color: Colors.white54),
+        menuScreen.title,
+        style: TextStyle(
+          color: context.read<MenuController>().activeMenuScreen == menuScreen
+              ? Colors.white70
+              : Colors.white54,
+          fontWeight:
+              context.read<MenuController>().activeMenuScreen == menuScreen
+                  ? FontWeight.w900
+                  : FontWeight.w300,
+        ),
       ),
     );
   }

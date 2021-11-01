@@ -9,6 +9,24 @@ enum MenuScreen {
   maintenanceMode,
 }
 
+extension MenuScreenExt on MenuScreen {
+  String get title {
+    var _title = "";
+    switch(this) {
+      case MenuScreen.dashboard:
+        _title = "Dashboard";
+        break;
+      case MenuScreen.appVersion:
+        _title = "App Version";
+        break;
+      case MenuScreen.maintenanceMode:
+        _title = "Maintenance Mode";
+        break;
+    }
+    return _title;
+  }
+}
+
 class MenuController extends ChangeNotifier {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
