@@ -5,8 +5,10 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/app_version_update"
-      relative: true
-    source: path
+      ref: HEAD
+      resolved-ref: c78867f727963c6271283d4b556d0f32cc20fca1
+      url: "https://github.com/Etiya/admin_panel_packages"
+    source: git
     version: "0.0.1"
   async:
     dependency: transitive
@@ -63,21 +65,21 @@ packages:
       name: cupertino_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.3"
+    version: "1.0.4"
   data_table_2:
     dependency: "direct main"
     description:
       name: data_table_2
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.3"
+    version: "2.2.0"
   equatable:
     dependency: transitive
     description:
       name: equatable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.2"
+    version: "2.0.3"
   fake_async:
     dependency: transitive
     description:
@@ -147,7 +149,7 @@ packages:
       name: fl_chart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.36.1"
+    version: "0.40.2"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -159,7 +161,7 @@ packages:
       name: flutter_form_builder
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.2.0"
+    version: "7.0.0"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -167,18 +169,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
-  flutter_localizations:
-    dependency: transitive
-    description: flutter
-    source: sdk
-    version: "0.0.0"
   flutter_svg:
     dependency: "direct main"
     description:
       name: flutter_svg
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.22.0"
+    version: "0.23.0+1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -249,8 +246,10 @@ packages:
     dependency: "direct main"
     description:
       path: "packages/maintenance_mode"
-      relative: true
-    source: path
+      ref: HEAD
+      resolved-ref: c78867f727963c6271283d4b556d0f32cc20fca1
+      url: "https://github.com/Etiya/admin_panel_packages"
+    source: git
     version: "0.0.1"
   matcher:
     dependency: transitive
@@ -412,7 +411,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0"
+    version: "6.0.1"
   sky_engine:
     dependency: transitive
     description: flutter
