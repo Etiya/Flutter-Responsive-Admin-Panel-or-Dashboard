@@ -40,8 +40,8 @@ class AppVersionScreenState extends State<AppVersionScreen> {
   @override
   void initState() {
     super.initState();
-    db.child("appVersionUpdate").once().then((snapshot) {
-      appVersion = AppVersionMetadata.fromJson(Map<String, dynamic>.from(snapshot.value));
+    db.child("appVersionUpdate").once().then((event) {
+      appVersion = AppVersionMetadata.fromJson(Map<String, dynamic>.from(event.snapshot.value as dynamic));
       setState(() {
         // Configuration
         updateButtonTextController.text = appVersion?.configuration?.updateButtonText ?? "";
@@ -257,7 +257,7 @@ class AppVersionScreenState extends State<AppVersionScreen> {
               IconButton(
                 icon: const Icon(Icons.menu),
                 onPressed: context
-                    .read<MenuController>()
+                    .read<MenuControllers>()
                     .controlMenu,
               ),
           ],

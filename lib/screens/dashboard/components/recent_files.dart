@@ -13,6 +13,7 @@ class RecentFiles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 260,
       padding: const EdgeInsets.all(defaultPadding),
       decoration: const BoxDecoration(
         color: secondaryColor,
@@ -26,6 +27,7 @@ class RecentFiles extends StatelessWidget {
             style: Theme.of(context).textTheme.subtitle1,
           ),
           SizedBox(
+            height: 200,
             width: double.infinity,
             child: DataTable2(
               columnSpacing: defaultPadding,

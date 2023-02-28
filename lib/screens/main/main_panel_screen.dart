@@ -11,7 +11,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: context.read<MenuController>().scaffoldKey,
+      key: context.read<MenuControllers>().scaffoldKey,
       drawer: const SideMenu(),
       body: SafeArea(
         child: Row(
@@ -27,7 +27,7 @@ class MainScreen extends StatelessWidget {
             Expanded(
               // It takes 5/6 part of the screen
               flex: 5,
-              child: context.watch<MenuController>().menuScreenWidget,
+              child: context.watch<MenuControllers>().menuScreenWidget,
             ),
           ],
         ),

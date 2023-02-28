@@ -34,7 +34,7 @@ class SideMenu extends StatelessWidget {
                 Navigator.of(context).pop();
               }
               context
-                  .read<MenuController>()
+                  .read<MenuControllers>()
                   .setMenuScreen(MenuScreen.dashboard);
             },
           ),
@@ -46,7 +46,7 @@ class SideMenu extends StatelessWidget {
                 Navigator.of(context).pop();
               }
               context
-                  .read<MenuController>()
+                  .read<MenuControllers>()
                   .setMenuScreen(MenuScreen.appVersion);
             },
           ),
@@ -58,7 +58,7 @@ class SideMenu extends StatelessWidget {
                 Navigator.of(context).pop();
               }
               context
-                  .read<MenuController>()
+                  .read<MenuControllers>()
                   .setMenuScreen(MenuScreen.maintenanceMode);
             },
           ),
@@ -93,11 +93,11 @@ class DrawerListTile extends StatelessWidget {
       title: Text(
         menuScreen.title,
         style: TextStyle(
-          color: context.read<MenuController>().activeMenuScreen == menuScreen
+          color: context.read<MenuControllers>().activeMenuScreen == menuScreen
               ? Colors.white70
               : Colors.white54,
           fontWeight:
-              context.read<MenuController>().activeMenuScreen == menuScreen
+              context.read<MenuControllers>().activeMenuScreen == menuScreen
                   ? FontWeight.w900
                   : FontWeight.w300,
         ),

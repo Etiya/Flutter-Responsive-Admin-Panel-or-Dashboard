@@ -30,6 +30,13 @@
             {
               "client_id": "891043151640-5ma1l7qa55qi7a68qf26c2kvfiqbdl9p.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "891043151640-cit846hto04035d4tbt1865ms56d3ig9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.etiya.mobileadminpanel"
+              }
             }
           ]
         }
@@ -59,6 +66,13 @@
             {
               "client_id": "891043151640-5ma1l7qa55qi7a68qf26c2kvfiqbdl9p.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "891043151640-cit846hto04035d4tbt1865ms56d3ig9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.etiya.mobileadminpanel"
+              }
             }
           ]
         }

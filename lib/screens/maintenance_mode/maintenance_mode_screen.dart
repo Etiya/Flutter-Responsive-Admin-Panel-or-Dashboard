@@ -28,8 +28,8 @@ class MaintenanceModeScreenState extends State<MaintenanceModeScreen> {
   @override
   void initState() {
     super.initState();
-    db.child("maintenanceMode").once().then((snapshot) {
-        maintenanceMode = MaintenanceMode.fromJson(Map<String, dynamic>.from(snapshot.value));
+    db.child("maintenanceMode").once().then((event) {
+        maintenanceMode = MaintenanceMode.fromJson(Map<String, dynamic>.from(event.snapshot.value as dynamic));
         setState(() {
           // TODO: initial enable setup does not work.
           isMaintenanceEnabled = maintenanceMode?.enabled ?? false;
@@ -132,7 +132,7 @@ class MaintenanceModeScreenState extends State<MaintenanceModeScreen> {
             if (!Responsive.isDesktop(context))
               IconButton(
                 icon: const Icon(Icons.menu),
-                onPressed: context.read<MenuController>().controlMenu,
+                onPressed: context.read<MenuControllers>().controlMenu,
               ),
           ],
         ),
