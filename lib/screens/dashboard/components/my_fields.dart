@@ -1,6 +1,8 @@
+import 'package:admin/controllers/dashboard_controller.dart';
 import 'package:admin/models/my_files.dart';
 import 'package:admin/responsive.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 import 'file_info_card.dart';
@@ -13,6 +15,7 @@ class MyFiles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size _size = MediaQuery.of(context).size;
+    var _dashboarControllers = Provider.of<DashBoardController>(context);
     return Column(
       children: [
         Row(
@@ -38,14 +41,33 @@ class MyFiles extends StatelessWidget {
         ),
         const SizedBox(height: defaultPadding),
         Responsive(
-          mobile: FileInfoCardGridView(
-            crossAxisCount: _size.width < 650 ? 2 : 4,
-            childAspectRatio: _size.width < 650 && _size.width > 350 ? 1.3 : 1,
-          ),
-          tablet: const FileInfoCardGridView(),
-          desktop: FileInfoCardGridView(
-            childAspectRatio: _size.width < 1400 ? 1.1 : 1.4,
-          ),
+          mobile: _dashboarControllers.state == DashboardStates.loading
+              ? const Center(child: CircularProgressIndicator())
+              : _dashboarControllers.state == DashboardStates.loaded
+                  ? FileInfoCardGridView(
+                      crossAxisCount: _size.width < 650 ? 2 : 4,
+                      childAspectRatio:
+                          _size.width < 650 && _size.width > 350 ? 1.3 : 1,
+                    )
+                  : const Center(
+                      child: Text('Error'),
+                    ),
+          tablet: _dashboarControllers.state == DashboardStates.loading
+              ? const Center(child: CircularProgressIndicator())
+              : _dashboarControllers.state == DashboardStates.loaded
+                  ? const FileInfoCardGridView()
+                  : const Center(
+                      child: Text('Error'),
+                    ),
+          desktop: _dashboarControllers.state == DashboardStates.loading
+              ? const Center(child: CircularProgressIndicator())
+              : _dashboarControllers.state == DashboardStates.loaded
+                  ? FileInfoCardGridView(
+                      childAspectRatio: _size.width < 1400 ? 1.1 : 1.4,
+                    )
+                  : const Center(
+                      child: Text('Error'),
+                    ),
         ),
       ],
     );
@@ -64,17 +86,26 @@ class FileInfoCardGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _dashboardControllers = Provider.of<DashBoardController>(context);
     return GridView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: demoMyFiles.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: crossAxisCount,
-        crossAxisSpacing: defaultPadding,
-        mainAxisSpacing: defaultPadding,
-        childAspectRatio: childAspectRatio,
-      ),
-      itemBuilder: (context, index) => FileInfoCard(info: demoMyFiles[index]),
-    );
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: _dashboardControllers.inProgressDashboardElements!.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: crossAxisCount,
+          crossAxisSpacing: defaultPadding,
+          mainAxisSpacing: defaultPadding,
+          childAspectRatio: childAspectRatio,
+        ),
+        itemBuilder: (context, index) {
+          return FileInfoCard(
+              info: CloudStorageInfo(
+                  title: _dashboardControllers
+                      .inProgressDashboardElements![index].featureName,
+                  percentage: _dashboardControllers
+                      .inProgressDashboardElements![index].completion,
+                  svgSrc: "assets/icons/Documents.svg",
+                  color: primaryColor));
+        });
   }
 }

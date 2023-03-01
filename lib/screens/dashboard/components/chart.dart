@@ -1,15 +1,21 @@
+import 'package:admin/controllers/dashboard_controller.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 
 class Chart extends StatelessWidget {
   const Chart({
     Key? key,
+    required this.paiChartSelectionDatas,
   }) : super(key: key);
+
+  final List<PieChartSectionData> paiChartSelectionDatas;
 
   @override
   Widget build(BuildContext context) {
+    var _dashboardControllers = Provider.of<DashBoardController>(context);
     return SizedBox(
       height: 200,
       child: Stack(
@@ -28,8 +34,8 @@ class Chart extends StatelessWidget {
               children: [
                 const SizedBox(height: defaultPadding),
                 Text(
-                  "%29",
-                  style: Theme.of(context).textTheme.headline4!.copyWith(
+                  _dashboardControllers.percentageSum!.toString(),
+                  style: Theme.of(context).textTheme.headlineLarge!.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
                         height: 0.5,
@@ -44,36 +50,3 @@ class Chart extends StatelessWidget {
     );
   }
 }
-
-List<PieChartSectionData> paiChartSelectionDatas = [
-  PieChartSectionData(
-    color: primaryColor,
-    value: 25,
-    showTitle: false,
-    radius: 25,
-  ),
-  PieChartSectionData(
-    color: const Color(0xFF26E5FF),
-    value: 20,
-    showTitle: false,
-    radius: 22,
-  ),
-  PieChartSectionData(
-    color: const Color(0xFFFFCF26),
-    value: 10,
-    showTitle: false,
-    radius: 19,
-  ),
-  PieChartSectionData(
-    color: const Color(0xFFEE2727),
-    value: 15,
-    showTitle: false,
-    radius: 16,
-  ),
-  PieChartSectionData(
-    color: primaryColor.withOpacity(0.1),
-    value: 25,
-    showTitle: false,
-    radius: 13,
-  ),
-];
