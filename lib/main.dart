@@ -1,4 +1,5 @@
 import 'package:admin/constants.dart';
+import 'package:admin/controllers/dashboard_controller.dart';
 import 'package:admin/controllers/menu_controller.dart';
 import 'package:admin/screens/main/main_panel_screen.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -38,8 +38,14 @@ class _MyAppState extends State<MyApp> {
       home: MultiProvider(
         providers: [
           ChangeNotifierProvider(
-            create: (context) => MenuController(),
+            create: (context) => MenuControllers(),
           ),
+          ChangeNotifierProvider(
+              lazy: false,
+              create: (BuildContext context) {
+                final DashBoardController provider = DashBoardController();
+                return provider;
+              }),
         ],
         child: const MainScreen(),
       ),
