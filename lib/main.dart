@@ -1,5 +1,6 @@
 import 'package:admin/constants.dart';
 import 'package:admin/controllers/authentication_controller.dart';
+import 'package:admin/controllers/dashboard_controller.dart';
 import 'package:admin/controllers/menu_controller.dart';
 import 'package:admin/screens/authentication/wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -43,6 +44,12 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(
           create: (context) => AuthenticationController(),
         ),
+        ChangeNotifierProvider(
+            lazy: false,
+            create: (BuildContext context) {
+              final DashBoardController provider = DashBoardController();
+              return provider;
+            }),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
