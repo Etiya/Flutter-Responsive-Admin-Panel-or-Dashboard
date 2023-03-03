@@ -38,6 +38,7 @@ dependencies:
       url: https://github.com/Etiya/admin_panel_packages
       path: packages/maintenance_mode
   firebase_auth: ^4.2.5
+  flutter_screenutil: ^5.6.1
 
 dev_dependencies:
   flutter_test:
