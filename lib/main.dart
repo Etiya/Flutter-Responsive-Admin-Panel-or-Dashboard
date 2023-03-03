@@ -3,6 +3,7 @@ import 'package:admin/controllers/dashboard_controller.dart';
 import 'package:admin/controllers/menu_controller.dart';
 import 'package:admin/screens/main/main_panel_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -26,29 +27,34 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Admin Panel',
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: bgColor,
-        textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
-            .apply(bodyColor: Colors.white),
-        canvasColor: secondaryColor,
-      ),
-      home: MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-            create: (context) => MenuControllers(),
+    return ScreenUtilInit(
+      builder: (context, child) {
+        return MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+              create: (context) => MenuControllers(),
+            ),
+            ChangeNotifierProvider(
+                lazy: false,
+                create: (BuildContext context) {
+                  final DashBoardController provider = DashBoardController();
+                  return provider;
+                }),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Flutter Admin Panel',
+            theme: ThemeData.dark().copyWith(
+              scaffoldBackgroundColor: bgColor,
+              textTheme:
+                  GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
+                      .apply(bodyColor: Colors.white),
+              canvasColor: secondaryColor,
+            ),
+            home: const MainScreen(),
           ),
-          ChangeNotifierProvider(
-              lazy: false,
-              create: (BuildContext context) {
-                final DashBoardController provider = DashBoardController();
-                return provider;
-              }),
-        ],
-        child: const MainScreen(),
-      ),
+        );
+      },
     );
   }
 }
