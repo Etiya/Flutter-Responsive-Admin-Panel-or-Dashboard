@@ -1,6 +1,7 @@
 import 'package:admin/controllers/dashboard_controller.dart';
 import 'package:admin/models/my_files.dart';
 import 'package:admin/responsive.dart';
+import 'package:admin/screens/dashboard/components/add_new_feature.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -33,7 +34,21 @@ class MyFiles extends StatelessWidget {
                       defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        fullscreenDialog: true,
+                        builder: ((context) => ChangeNotifierProvider(
+                              create: (context) => DashBoardController(),
+                              child: AddNewFeature.create(
+                                featureNameController: TextEditingController(),
+                                completionController: TextEditingController(),
+                              ),
+                            )))).then((value) async {
+                  await _dashboarControllers.getDashboardElements();
+                });
+              },
               icon: const Icon(Icons.add),
               label: const Text("Add New"),
             ),
@@ -99,13 +114,38 @@ class FileInfoCardGridView extends StatelessWidget {
         ),
         itemBuilder: (context, index) {
           return FileInfoCard(
-              info: CloudStorageInfo(
-                  title: _dashboardControllers
-                      .inProgressDashboardElements![index].featureName,
-                  percentage: _dashboardControllers
-                      .inProgressDashboardElements![index].completion,
-                  svgSrc: "assets/icons/Documents.svg",
-                  color: primaryColor));
+            info: CloudStorageInfo(
+              title: _dashboardControllers
+                  .inProgressDashboardElements![index].featureName,
+              percentage: _dashboardControllers
+                  .inProgressDashboardElements![index].completion,
+              svgSrc: "assets/icons/Documents.svg",
+              color: primaryColor,
+            ),
+            onTap: () async {
+              _dashboardControllers.inProgress = _dashboardControllers
+                  .inProgressDashboardElements![index].inProgress!;
+              _dashboardControllers.selectedDropdownItem = _dashboardControllers
+                  .inProgressDashboardElements![index].status;
+              await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      fullscreenDialog: true,
+                      builder: ((context) => AddNewFeature.edit(
+                            featureNameController: TextEditingController(
+                                text: _dashboardControllers
+                                    .inProgressDashboardElements![index]
+                                    .featureName),
+                            completionController: TextEditingController(
+                                text: _dashboardControllers
+                                    .inProgressDashboardElements![index]
+                                    .completion
+                                    .toString()),
+                          )))).then((value) async {
+                await _dashboardControllers.getDashboardElements();
+              });
+            },
+          );
         });
   }
 }
