@@ -54,6 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
             TextFormField(
               controller: _passwordController,
+              obscureText: true,
               cursorColor: Colors.orange,
               decoration: InputDecoration(
                 hintText: "password",
@@ -81,8 +82,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             if (authController.state == AuthenticationState.loaded ||
                 authController.state == AuthenticationState.initial)
               ElevatedButton(
-                onPressed: () {
-                  authController.createNewUser(
+                onPressed: () async {
+                  await authController.createNewUser(
                       _emailController.text, _passwordController.text);
                   if (authController.state == AuthenticationState.loaded) {
                     Navigator.pop(context);

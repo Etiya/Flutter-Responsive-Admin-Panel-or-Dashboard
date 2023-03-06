@@ -53,6 +53,7 @@ class _AuthScreenState extends State<AuthScreen> {
               height: 10,
             ),
             TextFormField(
+              obscureText: true,
               controller: _passwordController,
               cursorColor: Colors.orange,
               decoration: InputDecoration(
@@ -130,7 +131,10 @@ class _AuthScreenState extends State<AuthScreen> {
                     },
                     child: const Text("Click to register"),
                   ),
-                  const Text("Tekrar Deneyiniz", style: TextStyle(color: Colors.red),)
+                  const Text(
+                    "Tekrar Deneyiniz",
+                    style: TextStyle(color: Colors.red),
+                  )
                 ],
               ),
           ],
