@@ -45,7 +45,7 @@ class FileInfoCard extends StatelessWidget {
               ),
               InkWell(
                   onTap: onTap,
-                  child: const Icon(Icons.more_vert, color: Colors.white54))
+                  child: const Icon(Icons.edit, color: Colors.white54))
             ],
           ),
           Text(
