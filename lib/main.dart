@@ -38,31 +38,35 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => MenuControllers(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => AuthenticationController(),
-        ),
-        ChangeNotifierProvider(
-            lazy: false,
-            create: (BuildContext context) {
-              final DashBoardController provider = DashBoardController();
-              return provider;
-            }),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Admin Panel',
-        theme: ThemeData.dark().copyWith(
-          scaffoldBackgroundColor: bgColor,
-          textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
-              .apply(bodyColor: Colors.white),
-          canvasColor: secondaryColor,
-        ),
-        home: const Wrapper(),
-      ),
-    );
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => MenuControllers(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => AuthenticationController(),
+          ),
+          ChangeNotifierProvider(
+              lazy: false,
+              create: (BuildContext context) {
+                final DashBoardController provider = DashBoardController();
+                return provider;
+              }),
+        ],
+        child: ScreenUtilInit(
+          builder: (context, child) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Flutter Admin Panel',
+              theme: ThemeData.dark().copyWith(
+                scaffoldBackgroundColor: bgColor,
+                textTheme:
+                    GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
+                        .apply(bodyColor: Colors.white),
+                canvasColor: secondaryColor,
+              ),
+              home: const Wrapper(),
+            );
+          },
+        ));
   }
 }
