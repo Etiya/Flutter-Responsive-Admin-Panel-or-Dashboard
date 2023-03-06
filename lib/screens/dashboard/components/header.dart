@@ -2,6 +2,7 @@ import 'package:admin/controllers/authentication_controller.dart';
 import 'package:admin/controllers/menu_controller.dart';
 import 'package:admin/responsive.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:admin/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -60,23 +61,42 @@ class ProfileCard extends StatelessWidget {
           Image.asset(
             "assets/images/pp.png",
             height: 38,
+    return GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ProfileScreen(),
+              ));
+        },
+        child: Container(
+          margin: const EdgeInsets.only(left: defaultPadding),
+          padding: const EdgeInsets.symmetric(
+            horizontal: defaultPadding,
+            vertical: defaultPadding / 2,
           ),
-          if (!Responsive.isMobile(context))
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-              child: Text("John Doe"),
-            ),
-          const SizedBox(
-            width: 10,
+          decoration: BoxDecoration(
+            color: secondaryColor,
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            border: Border.all(color: Colors.white10),
           ),
-          InkWell(
-              onTap: () async{
-                await auth.signOut();
-              },
-              child: const Icon(CupertinoIcons.square_arrow_right)),
-        ],
-      ),
-    );
+          child: Row(
+            children: [
+              Image.asset(
+                "assets/images/pp.png",
+                height: 38,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              InkWell(
+                  onTap: () {
+                    AuthenticationController().signOut();
+                  },
+                  child: const Icon(CupertinoIcons.square_arrow_right)),
+            ],
+          ),
+        ));
   }
 }
 

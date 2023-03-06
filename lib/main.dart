@@ -44,12 +44,14 @@ class _MyAppState extends State<MyApp> {
             create: (context) => MenuControllers(),
           ),
           ChangeNotifierProvider(
-            create: (context) => AuthenticationController(FirebaseAuth.instance),
+            create: (context) =>
+                AuthenticationController(FirebaseAuth.instance),
           ),
           ChangeNotifierProvider(
               lazy: false,
               create: (BuildContext context) {
-                final DashBoardController provider = DashBoardController(FirebaseDatabase.instance);
+                final DashBoardController provider =
+                    DashBoardController(FirebaseDatabase.instance);
                 return provider;
               }),
         ],
