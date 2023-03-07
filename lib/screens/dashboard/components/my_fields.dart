@@ -2,6 +2,7 @@ import 'package:admin/controllers/dashboard_controller.dart';
 import 'package:admin/models/my_files.dart';
 import 'package:admin/responsive.dart';
 import 'package:admin/screens/dashboard/components/add_new_feature.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -40,7 +41,7 @@ class MyFiles extends StatelessWidget {
                     MaterialPageRoute(
                         fullscreenDialog: true,
                         builder: ((context) => ChangeNotifierProvider(
-                              create: (context) => DashBoardController(),
+                              create: (context) => DashBoardController(FirebaseDatabase.instance),
                               child: AddNewFeature.create(
                                 featureNameController: TextEditingController(),
                                 completionController: TextEditingController(),

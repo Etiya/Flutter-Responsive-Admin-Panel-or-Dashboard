@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 enum DashboardStates { loading, loaded, error }
 
 class DashBoardController extends ChangeNotifier {
-  DashBoardController() {
+  DashBoardController(this.firebaseDatabase) {
     getDashboardElements();
   }
-  DatabaseReference database = FirebaseDatabase.instance.ref();
+
+  FirebaseDatabase firebaseDatabase;
   DashboardStates? _state;
   DashboardStates? get state => _state;
   set state(DashboardStates? value) {
@@ -55,7 +56,8 @@ class DashBoardController extends ChangeNotifier {
       _dashboardElements = [];
       _inProgressDashboardElements = [];
       _percentageSum = 0;
-      var snapShot = await database.child('dashboardmodel').once();
+      var snapShot =
+          await firebaseDatabase.ref().child('dashboardmodel').once();
 
       _dashboardElements = (snapShot.snapshot.value as Map<dynamic, dynamic>)
           .values
@@ -80,10 +82,7 @@ class DashBoardController extends ChangeNotifier {
   Future<void> addNewFeature(DashboardElements elements) async {
     try {
       state = DashboardStates.loading;
-      await FirebaseDatabase.instance
-          .ref('dashboardmodel')
-          .push()
-          .set(elements.toMap());
+      await firebaseDatabase.ref('dashboardmodel').push().set(elements.toMap());
       state = DashboardStates.loaded;
     } catch (e) {
       state = DashboardStates.error;
@@ -93,7 +92,7 @@ class DashBoardController extends ChangeNotifier {
   Future<void> updateFeature(DashboardElements elements) async {
     try {
       state = DashboardStates.loading;
-      var dataRef = FirebaseDatabase.instance.ref().child("dashboardmodel");
+      var dataRef = firebaseDatabase.ref().child("dashboardmodel");
       var snapshot = await dataRef
           .orderByChild("featurename")
           .equalTo(elements.featureName)

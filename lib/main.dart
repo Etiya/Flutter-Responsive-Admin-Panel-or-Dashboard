@@ -4,6 +4,7 @@ import 'package:admin/controllers/dashboard_controller.dart';
 import 'package:admin/controllers/menu_controller.dart';
 import 'package:admin/screens/authentication/wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -48,7 +49,7 @@ class _MyAppState extends State<MyApp> {
           ChangeNotifierProvider(
               lazy: false,
               create: (BuildContext context) {
-                final DashBoardController provider = DashBoardController();
+                final DashBoardController provider = DashBoardController(FirebaseDatabase.instance);
                 return provider;
               }),
         ],
