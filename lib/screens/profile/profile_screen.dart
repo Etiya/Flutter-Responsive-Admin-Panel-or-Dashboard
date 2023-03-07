@@ -1,6 +1,8 @@
 import 'package:admin/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import '../../controllers/profile_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -14,7 +16,26 @@ class ProfileScreen extends StatelessWidget {
         backgroundColor: bgColor,
         elevation: 0,
       ),
-      body: Container(
+      body: ProfileScreenBody(),
+    );
+  }
+}
+
+class ProfileScreenBody extends StatelessWidget {
+  ProfileScreenBody({Key? key}) : super(key: key);
+
+  TextEditingController? mailController;
+
+  @override
+  Widget build(BuildContext context) {
+    final profileController = Provider.of<ProfileController>(context);
+    mailController = TextEditingController(
+      text: profileController.firebaseAuth.currentUser?.email,
+    );
+
+    if (profileController.state == ProfileState.initial ||
+        profileController.state == ProfileState.loaded) {
+      return Container(
         padding: const EdgeInsets.all(defaultPadding),
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -26,11 +47,26 @@ class ProfileScreen extends StatelessWidget {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const CircleAvatar(
-                  radius: 30,
-                  backgroundImage: AssetImage(
-                    'assets/images/pp.png',
-                  ),
+                GestureDetector(
+                  onTap: () async {
+                    await profileController.pickImage();
+                    await profileController.uploadImage();
+                    await profileController.updateProfilePhoto();
+                  },
+                  child: profileController.firebaseAuth.currentUser?.photoURL ==
+                          null
+                      ? CircleAvatar(
+                          radius: 30,
+                          child: Icon(
+                            Icons.person,
+                            size: 30.r,
+                          ),
+                        )
+                      : CircleAvatar(
+                          radius: 30,
+                          backgroundImage: NetworkImage(profileController
+                              .firebaseAuth.currentUser!.photoURL!),
+                        ),
                 ),
                 10.horizontalSpace,
                 Column(
@@ -62,7 +98,9 @@ class ProfileScreen extends StatelessWidget {
                   const Text('Name'),
                   10.verticalSpace,
                   TextFormField(
-                    initialValue: 'Atamer',
+                    readOnly: true,
+                    initialValue:
+                        profileController.firebaseAuth.currentUser?.displayName,
                     decoration: InputDecoration(
                         fillColor: bgColor,
                         filled: true,
@@ -75,7 +113,9 @@ class ProfileScreen extends StatelessWidget {
                   const Text('Surname'),
                   10.verticalSpace,
                   TextFormField(
-                    initialValue: 'Sahin',
+                    readOnly: true,
+                    initialValue:
+                        profileController.firebaseAuth.currentUser?.displayName,
                     decoration: InputDecoration(
                         fillColor: bgColor,
                         filled: true,
@@ -88,7 +128,9 @@ class ProfileScreen extends StatelessWidget {
                   const Text('Phone Number'),
                   10.verticalSpace,
                   TextFormField(
-                    initialValue: '+90323232332',
+                    readOnly: true,
+                    initialValue:
+                        profileController.firebaseAuth.currentUser?.phoneNumber,
                     decoration: InputDecoration(
                         fillColor: bgColor,
                         filled: true,
@@ -101,7 +143,7 @@ class ProfileScreen extends StatelessWidget {
                   const Text('Mail'),
                   10.verticalSpace,
                   TextFormField(
-                    initialValue: 'atamer.sahin@etiya.com',
+                    controller: mailController,
                     decoration: InputDecoration(
                         fillColor: bgColor,
                         filled: true,
@@ -123,7 +165,9 @@ class ProfileScreen extends StatelessWidget {
             10.verticalSpace,
             Center(
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await profileController.updateMail(mailController!.text);
+                },
                 child: const Text('Save'),
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(secondaryColor),
@@ -134,7 +178,15 @@ class ProfileScreen extends StatelessWidget {
             )
           ],
         ),
-      ),
-    );
+      );
+    } else if (profileController.state == ProfileState.loading) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    } else {
+      return const Center(
+        child: Text('Error'),
+      );
+    }
   }
 }
