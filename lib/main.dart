@@ -1,9 +1,12 @@
 import 'package:admin/constants.dart';
 import 'package:admin/controllers/authentication_controller.dart';
+import 'package:admin/controllers/dashboard_controller.dart';
 import 'package:admin/controllers/menu_controller.dart';
 import 'package:admin/screens/authentication/wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -36,25 +39,35 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => MenuControllers(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => AuthenticationController(),
-        ),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Admin Panel',
-        theme: ThemeData.dark().copyWith(
-          scaffoldBackgroundColor: bgColor,
-          textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
-              .apply(bodyColor: Colors.white),
-          canvasColor: secondaryColor,
-        ),
-        home: const Wrapper(),
-      ),
-    );
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => MenuControllers(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => AuthenticationController(FirebaseAuth.instance),
+          ),
+          ChangeNotifierProvider(
+              lazy: false,
+              create: (BuildContext context) {
+                final DashBoardController provider = DashBoardController(FirebaseDatabase.instance);
+                return provider;
+              }),
+        ],
+        child: ScreenUtilInit(
+          builder: (context, child) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'Flutter Admin Panel',
+              theme: ThemeData.dark().copyWith(
+                scaffoldBackgroundColor: bgColor,
+                textTheme:
+                    GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
+                        .apply(bodyColor: Colors.white),
+                canvasColor: secondaryColor,
+              ),
+              home: const Wrapper(),
+            );
+          },
+        ));
   }
 }

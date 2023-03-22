@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 enum AuthenticationState { initial, loading, loaded, error }
 
 class AuthenticationController extends ChangeNotifier {
-  auth.FirebaseAuth firebaseAuth = auth.FirebaseAuth.instance;
+  AuthenticationController(this.firebaseAuth) {}
+  auth.FirebaseAuth firebaseAuth;
 
   UserInfo? _userFromFirebase(auth.User? user) {
     if (user == null) {

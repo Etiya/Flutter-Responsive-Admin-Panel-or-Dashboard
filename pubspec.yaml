@@ -28,6 +28,9 @@ dependencies:
   firebase_database: ^10.0.9
   firebase_core_platform_interface: 4.5.2
 
+  mocktail: ^0.3.0
+  firebase_database_mocks: ^0.6.0
+
   app_version_update:
     git:
       url: https://github.com/Etiya/admin_panel_packages
@@ -38,6 +41,9 @@ dependencies:
       url: https://github.com/Etiya/admin_panel_packages
       path: packages/maintenance_mode
   firebase_auth: ^4.2.5
+  flutter_screenutil: ^5.6.1
+  mockito: ^5.3.2
+  firebase_auth_mocks: ^0.10.3
 
 dev_dependencies:
   flutter_test:

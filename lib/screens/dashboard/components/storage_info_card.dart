@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constants.dart';
-
+//EN ALT
 class StorageInfoCard extends StatelessWidget {
   const StorageInfoCard({
     Key? key,

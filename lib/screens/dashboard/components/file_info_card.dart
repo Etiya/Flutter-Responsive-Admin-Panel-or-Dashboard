@@ -4,13 +4,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constants.dart';
 
+//ÜST
 class FileInfoCard extends StatelessWidget {
   const FileInfoCard({
     Key? key,
     required this.info,
+    required this.onTap,
   }) : super(key: key);
 
   final CloudStorageInfo info;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +43,9 @@ class FileInfoCard extends StatelessWidget {
                   color: info.color,
                 ),
               ),
-              const Icon(Icons.more_vert, color: Colors.white54)
+              InkWell(
+                  onTap: onTap,
+                  child: const Icon(Icons.edit, color: Colors.white54))
             ],
           ),
           Text(
