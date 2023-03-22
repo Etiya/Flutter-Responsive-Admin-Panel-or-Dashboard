@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
             create: (context) => MenuControllers(),
           ),
           ChangeNotifierProvider(
-            create: (context) => AuthenticationController(),
+            create: (context) => AuthenticationController(FirebaseAuth.instance),
           ),
           ChangeNotifierProvider(
               lazy: false,

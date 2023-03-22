@@ -43,6 +43,7 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthenticationController>(context);
     return Container(
       margin: const EdgeInsets.only(left: defaultPadding),
       padding: const EdgeInsets.symmetric(
@@ -69,8 +70,8 @@ class ProfileCard extends StatelessWidget {
             width: 10,
           ),
           InkWell(
-              onTap: () {
-                AuthenticationController().signOut();
+              onTap: () async{
+                await auth.signOut();
               },
               child: const Icon(CupertinoIcons.square_arrow_right)),
         ],
