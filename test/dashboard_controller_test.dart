@@ -15,43 +15,45 @@ void main() async {
       .ref()
       .child('dashboardmodel')
       .set(mockDashboardElements);
-  setUp(() {
-    firebaseDatabase = MockFirebaseDatabase.instance;
-    controller = DashBoardController(firebaseDatabase!);
-  });
-  test('Test getDashboardElements', () async {
-    await controller!.getDashboardElements();
-    expect(controller!.state, equals(DashboardStates.loaded));
-  });
+  group('DashboardController', () {
+    setUp(() {
+      firebaseDatabase = MockFirebaseDatabase.instance;
+      controller = DashBoardController(firebaseDatabase!);
+    });
+    test('Test getDashboardElements', () async {
+      await controller!.getDashboardElements();
+      expect(controller!.state, equals(DashboardStates.loaded));
+    });
 
-  test('Test addNewFeature', () async {
-    await controller!.addNewFeature(fakeDashboardModel);
-    expect(controller!.state, equals(DashboardStates.loaded));
-  });
+    test('Test addNewFeature', () async {
+      await controller!.addNewFeature(fakeDashboardModel);
+      expect(controller!.state, equals(DashboardStates.loaded));
+    });
 
-  test('Test updateFeature', () async {
-    await controller!.updateFeature(fakeDashboardModel);
-    expect(controller!.state, equals(DashboardStates.error));
-  });
-  
-  test('selectedDropdownItem should be set correctly', () {
-    String? expectedValue = 'Test Value';
-    controller!.selectedDropdownItem = expectedValue;
-    expect(controller!.selectedDropdownItem, expectedValue);
-  });
+    test('Test updateFeature', () async {
+      await controller!.updateFeature(fakeDashboardModel);
+      expect(controller!.state, equals(DashboardStates.error));
+    });
 
-  test('inProgress should be false by default', () {
-    expect(controller!.inProgress, false);
-  });
+    test('selectedDropdownItem should be set correctly', () {
+      String? expectedValue = 'Test Value';
+      controller!.selectedDropdownItem = expectedValue;
+      expect(controller!.selectedDropdownItem, expectedValue);
+    });
 
-  test('inProgress should be true when set to true', () {
-    controller!.inProgress = true;
+    test('inProgress should be false by default', () {
+      expect(controller!.inProgress, false);
+    });
 
-    expect(controller!.inProgress, true);
-  });
+    test('inProgress should be true when set to true', () {
+      controller!.inProgress = true;
 
-  test('Test dropdownItems', () {
-    expect(controller!.dropdownItems[0].value, 'In Development');
-    expect(controller!.dropdownItems[1].value, 'Open');
+      expect(controller!.inProgress, true);
+    });
+
+    test('Test dropdownItems', () {
+      expect(controller!.dropdownItems[0].value, 'In Development');
+      expect(controller!.dropdownItems[1].value, 'Open');
+    });
   });
 }
