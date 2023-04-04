@@ -2,6 +2,7 @@ import 'package:admin/constants.dart';
 import 'package:admin/controllers/authentication_controller.dart';
 import 'package:admin/controllers/dashboard_controller.dart';
 import 'package:admin/controllers/menu_controller.dart';
+import 'package:admin/controllers/profile_controller.dart';
 import 'package:admin/screens/authentication/wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -44,12 +45,14 @@ class _MyAppState extends State<MyApp> {
             create: (context) => MenuControllers(),
           ),
           ChangeNotifierProvider(
-            create: (context) => AuthenticationController(FirebaseAuth.instance),
+            create: (context) =>
+                AuthenticationController(FirebaseAuth.instance),
           ),
           ChangeNotifierProvider(
               lazy: false,
               create: (BuildContext context) {
-                final DashBoardController provider = DashBoardController(FirebaseDatabase.instance);
+                final DashBoardController provider =
+                    DashBoardController(FirebaseDatabase.instance);
                 return provider;
               }),
         ],

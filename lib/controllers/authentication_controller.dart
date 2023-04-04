@@ -33,11 +33,11 @@ class AuthenticationController extends ChangeNotifier {
       state = AuthenticationState.loading;
       credential = await firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
+
       state = AuthenticationState.loaded;
     } catch (_) {
       state = AuthenticationState.error;
     }
-
     return _userFromFirebase(credential?.user);
   }
 
