@@ -13,9 +13,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   cupertino_icons: ^1.0.4
-
   data_table_2: ^2.2.0
   flutter_form_builder: ^7.0.0
   flutter_svg: ^0.23.0+1
@@ -23,13 +21,13 @@ dependencies:
   font_awesome_flutter: ^9.2.0
   google_fonts: ^2.1.0
   provider: ^6.0.1
-
   firebase_core: ^2.4.1
   firebase_database: ^10.0.9
-  firebase_core_platform_interface: 4.5.2
-
+  firebase_core_platform_interface: 4.6.0
+  firebase_storage: ^11.1.0
   mocktail: ^0.3.0
   firebase_database_mocks: ^0.6.0
+  image_picker: ^0.8.7+1
 
   app_version_update:
     git:
