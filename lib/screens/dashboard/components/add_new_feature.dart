@@ -2,6 +2,7 @@ import 'package:admin/constants.dart';
 import 'package:admin/controllers/dashboard_controller.dart';
 import 'package:admin/models/dashboard_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
@@ -79,12 +80,34 @@ class _AddNewFeatureState extends State<AddNewFeature> {
               10.verticalSpace,
               TextFormField(
                 controller: widget.completionController,
-                decoration: InputDecoration(
-                    fillColor: bgColor,
-                    filled: true,
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10.r)))),
-                validator: (value) => value!.isEmpty ? 'field required' : null,
+                decoration: const InputDecoration(
+                  fillColor: bgColor,
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  ),
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Field required';
+                  }
+                  // Sayıyı çözümleme işlemi
+                  final number = int.tryParse(value);
+                  if (number == null) {
+                    return 'Geçerli bir sayı giriniz';
+                  }
+                  // Sayının 0 ile 100 arasında olup olmadığını kontrol etme
+                  if (number < 0 || number > 100) {
+                    return 'Sayı 0 ile 100 arasında olmalıdır';
+                  }
+                  return null; // Geçerli değer
+                },
+                keyboardType: TextInputType
+                    .number, // Klavyenin sayı modunda olmasını sağlar
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(
+                      RegExp(r'^\d+')), // Sadece sayıları kabul eder
+                ],
               ),
               20.verticalSpace,
               const Text('Status'),

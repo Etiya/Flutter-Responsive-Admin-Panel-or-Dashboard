@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:admin/constants.dart';
+import 'package:admin/models/app_user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -16,18 +19,21 @@ class ProfileScreen extends StatelessWidget {
         backgroundColor: bgColor,
         elevation: 0,
       ),
-      body: ProfileScreenBody(),
+      body: const ProfileScreenBody(),
     );
   }
 }
 
 class ProfileScreenBody extends StatelessWidget {
-  ProfileScreenBody({Key? key}) : super(key: key);
-
-  TextEditingController? mailController;
+  const ProfileScreenBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController? mailController;
+    final nameController = TextEditingController();
+    final surnameController = TextEditingController();
+    final phoneController = TextEditingController();
+
     final profileController = Provider.of<ProfileController>(context);
     mailController = TextEditingController(
       text: profileController.firebaseAuth.currentUser?.email,
@@ -50,9 +56,12 @@ class ProfileScreenBody extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () async {
-                      await profileController.pickImage();
-                      await profileController.uploadImage();
-                      await profileController.updateProfilePhoto();
+                      await profileController.pickImage().then((value) async {
+                        if (value != null) {
+                          await profileController.uploadImage(value);
+                          await profileController.updateProfilePhoto();
+                        }
+                      });
                     },
                     child:
                         profileController.firebaseAuth.currentUser?.photoURL ==
@@ -71,8 +80,8 @@ class ProfileScreenBody extends StatelessWidget {
                               ),
                   ),
                   10.horizontalSpace,
-                  Column(
-                    children: const [
+                  const Column(
+                    children: [
                       Text(
                         'Change Profile Photo',
                         style: TextStyle(fontWeight: FontWeight.w500),
@@ -100,9 +109,9 @@ class ProfileScreenBody extends StatelessWidget {
                     const Text('Name'),
                     10.verticalSpace,
                     TextFormField(
-                      readOnly: true,
-                      initialValue: profileController
-                          .firebaseAuth.currentUser?.displayName,
+                      controller: nameController,
+                      readOnly: false,
+                      initialValue: profileController.appUser?.name,
                       decoration: InputDecoration(
                           fillColor: bgColor,
                           filled: true,
@@ -115,9 +124,9 @@ class ProfileScreenBody extends StatelessWidget {
                     const Text('Surname'),
                     10.verticalSpace,
                     TextFormField(
-                      readOnly: true,
-                      initialValue: profileController
-                          .firebaseAuth.currentUser?.displayName,
+                      controller: surnameController,
+                      readOnly: false,
+                      initialValue: profileController.appUser?.surname,
                       decoration: InputDecoration(
                           fillColor: bgColor,
                           filled: true,
@@ -130,9 +139,9 @@ class ProfileScreenBody extends StatelessWidget {
                     const Text('Phone Number'),
                     10.verticalSpace,
                     TextFormField(
-                      readOnly: true,
-                      initialValue: profileController
-                          .firebaseAuth.currentUser?.phoneNumber,
+                      readOnly: false,
+                      controller: phoneController,
+                      initialValue: profileController.appUser?.phoneNumber,
                       decoration: InputDecoration(
                           fillColor: bgColor,
                           filled: true,
@@ -168,7 +177,17 @@ class ProfileScreenBody extends StatelessWidget {
               Center(
                 child: ElevatedButton(
                   onPressed: () async {
-                    await profileController.updateMail(mailController!.text);
+                    log(nameController.text.toString());
+                    await profileController.addAppUserInfo(
+                      AppUser(
+                        name: nameController.text,
+                        surname: surnameController.text,
+                        phoneNumber: phoneController.text,
+                        profilePhoto: profileController
+                            .firebaseAuth.currentUser!.photoURL!,
+                        email: mailController!.text,
+                      ),
+                    );
                   },
                   child: const Text('Save'),
                   style: ButtonStyle(

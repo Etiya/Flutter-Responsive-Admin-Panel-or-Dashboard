@@ -1,9 +1,11 @@
 import 'package:admin/controllers/authentication_controller.dart';
 import 'package:admin/controllers/menu_controller.dart';
+import 'package:admin/controllers/profile_controller.dart';
 import 'package:admin/responsive.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:admin/screens/profile/profile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
@@ -44,6 +46,7 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final profileController = Provider.of<ProfileController>(context);
     final auth = Provider.of<AuthenticationController>(context);
     return Container(
         margin: const EdgeInsets.only(left: defaultPadding),
@@ -58,40 +61,42 @@ class ProfileCard extends StatelessWidget {
         ),
         child: Row(children: [
           GestureDetector(
-            onTap: () {
+            onTap: () async {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ProfileScreen(),
-                  ));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProfileScreen(),
+                ),
+              );
+              // await profileController.getAppUserInfo();
+
+              ;
             },
-            child: Container(
-              margin: const EdgeInsets.only(left: defaultPadding),
-              padding: const EdgeInsets.symmetric(
-                horizontal: defaultPadding,
-                vertical: defaultPadding / 2,
-              ),
-              decoration: BoxDecoration(
-                color: secondaryColor,
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                border: Border.all(color: Colors.white10),
-              ),
-              child: Row(
-                children: [
-                  Image.asset(
-                    "assets/images/pp.png",
-                    height: 38,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  InkWell(
-                      onTap: () async {
-                        await auth.signOut();
-                      },
-                      child: const Icon(CupertinoIcons.square_arrow_right)),
-                ],
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                profileController.firebaseAuth.currentUser!.photoURL != null
+                    ? CircleAvatar(
+                        radius: 20,
+                        backgroundImage: NetworkImage(
+                          profileController.firebaseAuth.currentUser!.photoURL!,
+                        ),
+                      )
+                    : const CircleAvatar(
+                        radius: 20,
+                        child: Icon(
+                          Icons.person,
+                        ),
+                      ),
+                SizedBox(
+                  width: 10.h,
+                ),
+                InkWell(
+                    onTap: () async {
+                      await auth.signOut();
+                    },
+                    child: const Icon(CupertinoIcons.square_arrow_right)),
+              ],
             ),
           ),
         ]));

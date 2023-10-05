@@ -3,6 +3,7 @@ import 'package:admin/controllers/authentication_controller.dart';
 import 'package:admin/controllers/dashboard_controller.dart';
 import 'package:admin/controllers/menu_controller.dart';
 import 'package:admin/controllers/profile_controller.dart';
+import 'package:admin/firebase_options.dart';
 import 'package:admin/screens/authentication/wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -17,7 +18,10 @@ late FirebaseApp app;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  app = await Firebase.initializeApp();
+
+  app = await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -45,19 +49,27 @@ class _MyAppState extends State<MyApp> {
             create: (context) => MenuControllers(),
           ),
           ChangeNotifierProvider(
-            create: (context) => ProfileController(),
+            create: (BuildContext context) {
+              final ProfileController provider = ProfileController(
+                FirebaseDatabase.instance,
+              );
+              return provider;
+            },
           ),
           ChangeNotifierProvider(
-            create: (context) =>
-                AuthenticationController(FirebaseAuth.instance),
+            create: (context) => AuthenticationController(
+              FirebaseAuth.instance,
+            ),
           ),
           ChangeNotifierProvider(
-              lazy: false,
-              create: (BuildContext context) {
-                final DashBoardController provider =
-                    DashBoardController(FirebaseDatabase.instance);
-                return provider;
-              }),
+            lazy: false,
+            create: (BuildContext context) {
+              final DashBoardController provider = DashBoardController(
+                FirebaseDatabase.instance,
+              );
+              return provider;
+            },
+          ),
         ],
         child: ScreenUtilInit(
           builder: (context, child) {
