@@ -32,26 +32,6 @@ class _AuthScreenState extends State<AuthScreen> {
         authController: authController,
       ),
     );
-    // Responsive(
-    //   mobile: AuthWidget(
-    //     padding: 50,
-    //     emailController: _emailController,
-    //     passwordController: _passwordController,
-    //     authController: authController,
-    //   ),
-    //   tablet: AuthWidget(
-    //     padding: 170,
-    //     emailController: _emailController,
-    //     passwordController: _passwordController,
-    //     authController: authController,
-    //   ),
-    //   desktop: AuthWidget(
-    //     padding: 500.sp,
-    //     emailController: _emailController,
-    //     passwordController: _passwordController,
-    //     authController: authController,
-    //   ),
-    // ));
   }
 }
 
